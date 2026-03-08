@@ -1,0 +1,31 @@
+Year,Filename,Title,Authors,G1,G2,G3,G4,G5,G6,G7,T1,T2,Q1,Q2,Q3,Flag_Grad,Flag_HighQ,Flag_WB,Flag_NoEcon,Flag_NoCode,Flag_NoReal,Traditional_Score
+2022,3548606.3559350.pdf,Perception-Aware Attack: Creating Adversarial Music via Reverse-Engineering Human Perception,Rui Duan et al.,atk,Evasion,Both,Audio,NO,NO,YES,Black-box,,NO,High,High,0,1,0,1,1,0,3
+2022,3548606.3559392.pdf,"""Is your explanation stable?"": A Robustness Evaluation Framework for Feature Attribution",Yuyou Gan et al. ,def,,DL,Images,NO,NO,NO,,,YES,High,High,1,1,0,1,1,1,5
+2022,3548606.3560705.pdf,LPGNet: Link Private Graph Networks for Node Classification,Aashish Kolluri et al. ,def,Privacy,DL,Other,NO,YES,NO,Black-box,,NO,High,High,0,1,0,1,0,1,3
+2022,3548606.3560671.pdf,When Evil Calls: Targeted Adversarial Voice over IP Network,Han Liu et al. ,atk,Evasion,DL,Audio,YES,YES,YES,Black-box,,NO,High,High,0,1,0,0,0,0,1
+2022,3548606.3559390.pdf,Physical Hijacking Attacks against Object Trackers,Raymond Muller et al.,atk,Evasion,DL,Images,YES,YES,NO,Gray-box,Partial,YES,,High,1,0,0,0,0,1,2
+2022,3548606.3560662.pdf,Group Property Inference Attacks Against Graph Neural Networks,Xinyu Wang et al.,both,Privacy,DL,Other,YES,YES,NO,Multiple,Partial,YES,,High,1,0,0,0,0,1,2
+2022,3548606.3560663.pdf,Are Attribute Inference Attacks Just Imputation?,Bargav Jayaraman et al.,atk,Privacy,Both,Other,NO,YES,NO,White-box,Partial,YES,,Low,1,0,1,1,0,1,4
+2022,3548606.3560675.pdf,Enhanced Membership Inference Attacks against Machine Learning Models,Jiayuan Ye et al.,atk,Privacy,Both,Other,NO,YES,NO,Black-box,Partial,NO,High,High,0,1,0,1,0,1,3
+2022,3548606.3559355.pdf,SSLGuard: A Watermarking Scheme for Self-supervised Learning Pre-trained Encoders,Tianshuo Cong et al.,def,Privacy,DL,Images,YES,YES,NO,Black-box,Partial,NO,High,High,0,1,0,0,0,1,2
+2022,3548606.3560660.pdf,SpecPatch: Human-in-the-Loop Adversarial Audio Spectrogram Patch Attack on Speech Recognition, Hanqing Guo et al.,atk,Evasion,DL,Audio,NO,NO,YES,White-box,,YES,,High,1,0,1,1,1,0,4
+2022,3548606.3560599.pdf,Why So Toxic? Measuring and Triggering Toxic Behavior in Open-Domain Chatbots,Wai Man Si et al.,atk,Evasion,DL,Text,YES,NO,NO,Black-box,Partial,NO,High,High,0,1,0,0,1,1,3
+2022,3548606.3560566.pdf,Harnessing Perceptual Adversarial Patches for Crowd Counting,Shunchang Liu et al.,both,Evasion,DL,Images,NO,YES,NO,Black-box,,YES,,High,1,0,0,1,0,1,3
+2022,3548606.3560573.pdf,Feature Inference Attack on Shapley Values,Xinjian Luo et al.,atk,Privacy,Both,Other,YES,NO,YES,Black-box,Partial,NO,Low,Low,0,0,0,0,1,0,1
+2022,3548606.3560611.pdf,E FFeL: Ensuring Integrity For Federated Learning,Amrita Roy Chowdhury et al.,def,,DL,Images,YES,NO,NO,,,YES,,High,1,0,0,0,1,1,3
+2022,3548606.3560615.pdf,Phishing URL Detection: A Network-based Approach Robust to Evasion,Taeri Kim et al.,def,Evasion,Both,Text,YES,YES,NO,,,NO,,Low,0,0,0,0,0,1,1
+2022,3548606.3559335.pdf,Identifying a Training-Set Attack’s Target Using Renormalized Influence Estimation,Zayd Hammoudeh et al. ,def,Poisoning,DL,Images,NO,YES,NO,Gray-box,Partial,YES,,High,1,0,0,1,0,1,3
+2022,3548606.3560561.pdf,Post-breach Recovery:Protectionagainst White-box Adversarial ExamplesforLeaked DNN Models,Shawn Shan et al. ,def,,DL,Images,YES,NO,NO,White-box,Partial,YES,,High,1,0,1,0,1,1,4
+2022,3548606.3560586.pdf,StolenEncoder: Stealing Pre-trained Encoders in Self-supervised Learning,Yupei Liu et al. ,atk,Privacy,DL,Images,YES,NO,YES,Black-box,Partial,YES,High,High,1,1,0,0,1,0,3
+2022,3548606.3560619.pdf,On the Privacy Risks of Cell-Based NAS Architectures Hai Huang CISPA Helmholtz Center for Information SecurityZhikun Zhang CISPA Helmholtz Center for ,Hai Huang et al. ,both,Privacy,DL,Images,NO,YES,NO,White-box,Partial,YES,High,High,1,1,1,1,0,1,5
+2022,3548606.3560581.pdf,QuerySnout: Automating the Discovery of Attribute Inference Attacks against Query-Based System,Ana-Maria Creţu et al. ,atk,Privacy,Traditional,Other,YES,YES,NO,Black-box,Partial,NO,High,High,0,1,0,0,0,1,2
+2022,3548606.3560557.pdf,Eluding Secure Aggregation in Federated Learning via Model Inconsistency,Dario Pasquini et al. ,atk,Privacy,DL,Images,NO,YES,NO,White-box,Partial,YES,,Low,1,0,1,1,0,1,4
+2022,3548606.3560621.pdf,Adversarial Correctness and Privacy for Probabilistic Data Structures,Mia Filić et al. ,def,,Traditional,Other,YES,NO,NO,,,NO,,Low,0,0,0,0,1,1,2
+2022,3548606.3560554.pdf,Truth Serum: Poisoning Machine Learning Models to Reveal Their Secrets ,Florian Tramèr et al. ,atk,Privacy,DL,Images,NO,NO,NO,Black-box,Partial,NO,High,High,0,1,0,1,1,1,4
+2022,3548606.3559359.pdf,Auditing Membership Leakages of Multi-Exit Networks,Zheng Li et al. ,both,Privacy,DL,Images,YES,YES,NO,Gray-box,Partial,YES,High,High,1,1,0,0,0,1,3
+2022,3548606.3559358.pdf,Finding MNEMON: Reviving Memories of Node Embeddings ,Yun Shen et al. ,atk,Privacy,DL,Other,NO,NO,NO,Black-box,,NO,,High,0,0,0,1,1,1,3
+2022,3548606.3560678.pdf,LoneNeuron: A Highly-Effective Feature-Domain Neural Trojan Using Invisible and Polymorphic Watermarks,Zeyan Liu et al. ,atk,Poisoning,DL,Images,YES,NO,NO,Gray-box,Partial,YES,,High,1,0,0,0,1,1,3
+2022,3548606.3560684.pdf,Membership Inference Attacks by Exploiting Loss Trajectory,Yiyong Liu et al. ,atk,Privacy,DL,Images,NO,YES,NO,Black-box,Partial,NO,Low,High,0,0,0,1,0,1,2
+2022,3548606.3560694.pdf,Membership Inference Attacks and Generalization: A Causal Perspective,Teodora Baluta et al. ,atk,Privacy,DL,Images,NO,YES,NO,Black-box,,NO,High,High,0,1,0,1,0,1,3
+2022,3548606.3559388.pdf,Understanding Real-world Threats to Deep Learning Models in Android Apps,Zizhuang Deng et al. ,atk,Evasion,DL,Images,YES,YES,YES,Black-box,Partial,YES,High,High,1,1,0,0,0,0,2
+2022,3548606.3560683.pdf,Order-Disorder: Imitation Adversarial Attacks for Black-box Neural Ranking Models,Jiawei Liu et al. ,atk,Evasion,DL,Text,YES,YES,NO,Black-box,Partial,YES,High,High,1,1,0,0,0,1,3

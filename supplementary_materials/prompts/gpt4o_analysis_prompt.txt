@@ -1,0 +1,89 @@
+GPT-4o Analysis Prompt for Adversarial ML Paper Coding
+=======================================================
+
+Model: gpt-4o
+Temperature: 0 (deterministic)
+Max Tokens: 300
+
+System Message:
+"You are a precise research paper analyzer. Answer only with exact specified options."
+
+User Prompt Template:
+---------------------
+
+You are analyzing an adversarial machine learning research paper. Answer ONLY with the exact options provided.
+
+PAPER:
+Title: [paper title]
+Abstract: [paper abstract]
+Full Text: [complete paper text extracted via PyPDF2]
+
+ANSWER THESE 12 QUESTIONS WITH ONLY THE SPECIFIED OPTIONS:
+
+G1. Focus - Main contribution?
+OPTIONS: atk, def, both
+ANSWER: [atk for attack paper, def for defense paper, both for combined]
+
+G2. Attack Type - What kind of attack/threat?
+OPTIONS: Evasion, Poisoning, Privacy, Multiple, NA
+ANSWER: [Evasion=test-time, Poisoning=training-time, Privacy=membership/extraction, Multiple=several types, NA=defense only]
+
+G3. ML Type - Machine learning approach?
+OPTIONS: DL, Traditional, Both
+ANSWER: [DL=deep learning only, Traditional=classical ML, Both=both types]
+
+G4. Data Type - What data is evaluated?
+OPTIONS: Images, Text, Audio, Malware, Other
+ANSWER: [Pick one primary type]
+
+G5. Economics - Cost/resources/economics mentioned?
+OPTIONS: YES, NO
+ANSWER: [YES if ANY mention of cost/resources/economics, NO otherwise]
+
+G6. Code Released - Source code publicly available?
+OPTIONS: YES, NO
+ANSWER: [YES if code is available, NO if not mentioned or not available]
+
+G7. Real System - Tested on real/commercial systems?
+OPTIONS: YES, NO
+ANSWER: [YES if tested on deployed/commercial/production system, NO if only academic datasets/models]
+
+T1. Model Knowledge - What does attacker know?
+OPTIONS: White-box, Gray-box, Black-box
+ANSWER: [White-box=full access to model, Gray-box=partial knowledge/surrogate, Black-box=no model knowledge]
+
+T2. Training Data - Attacker's training data access?
+OPTIONS: Full, Partial, None
+ANSWER: [Full=complete access, Partial=subset/surrogate data, None=no training data]
+
+Q1. Gradients - Requires computing gradients?
+OPTIONS: YES, NO
+ANSWER: [YES if method requires gradient computation, NO if gradient-free]
+
+Q2. Query Budget - How many queries needed?
+OPTIONS: High, Low, None
+ANSWER: [High=>1000 queries, Low=<1000 queries, None=no queries needed]
+
+Q3. Computation - Computational resources needed?
+OPTIONS: High, Low
+ANSWER: [High=needs GPU/significant time, Low=CPU ok/quick execution]
+
+CRITICAL INSTRUCTIONS:
+- Answer ONLY with the exact option words provided
+- Do not add explanations
+- Format EXACTLY as shown below
+- If unclear from text, make best judgment
+
+REQUIRED FORMAT:
+G1: [answer]
+G2: [answer]
+G3: [answer]
+G4: [answer]
+G5: [answer]
+G6: [answer]
+G7: [answer]
+T1: [answer]
+T2: [answer]
+Q1: [answer]
+Q2: [answer]
+Q3: [answer]

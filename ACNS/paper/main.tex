@@ -4,18 +4,11 @@
 
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
-\usepackage{booktabs}
 \usepackage{amsmath,amssymb}
 \usepackage{hyperref}
-\usepackage{xcolor}
-\usepackage{enumitem}
-
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    citecolor=black,
-    urlcolor=blue
-}
+\usepackage{color}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+\urlstyle{rm}
 
 \begin{document}
 
@@ -31,27 +24,23 @@
 
 %==============================================================================
 \begin{abstract}
-Machine learning systems are increasingly deployed in security-critical contexts, yet a persistent gap separates academic adversarial machine learning (AML) research from real-world deployment needs. We systematically analyze 454 papers published from 2022 to 2025 across four leading security conferences (ACM CCS, IEEE S\&P, NDSS, and USENIX Security), applying and extending the framework introduced by Apruzzese et al.\ in ``Real Attackers Don't Compute Gradients.'' We introduce a quantitative Gap Score capturing six dimensions of impractical assumptions. Our findings reveal that 94.7\% of papers do not evaluate on deployed systems, 67.8\% require gradient access, 63.2\% assume white-box threat models, and 80.4\% assume high query budgets---with no meaningful improvement from 2022 to 2025. Cross-venue analysis shows all four conferences exhibit similar gap patterns (mean Gap Score 3.04--3.25 out of 6). We identify five areas requiring closer alignment with deployment realities and offer recommendations for researchers, conference organizers, practitioners, and funders. The complete coded dataset of all 454 papers is provided as supplementary material to enable replication and extension.
+Machine learning systems are increasingly deployed in security-critical contexts, yet a persistent gap separates academic adversarial machine learning (AML) research from real-world deployment needs. We systematically analyze 454 papers published from 2022 to 2025 across four leading security conferences (ACM CCS, IEEE S\&P, NDSS, and USENIX Security), applying and extending the framework introduced by Apruzzese et al.\ in ``Real Attackers Don't Compute Gradients.'' We introduce a quantitative Gap Score capturing six dimensions of impractical assumptions. Our findings reveal that 94.7\% [95\% CI: 92.3\%, 96.4\%] of papers do not evaluate on deployed systems, 67.8\% [63.4\%, 72.0\%] require gradient access, 63.2\% [58.7\%, 67.5\%] assume white-box threat models, and 80.4\% [76.5\%, 83.8\%] assume high query budgets, with no statistically significant improvement from 2022 to 2025 (all p $>$ 0.28). Cross-venue analysis shows all four conferences exhibit similar gap patterns (mean Gap Score 3.04 to 3.25 out of 6, p $>$ 0.20). We offer recommendations for researchers, conference organizers, practitioners, and funders. The complete coded dataset of all 454 papers is provided as supplementary material to enable replication and extension.
 
-\keywords{adversarial machine learning \and theory-practice gap \and systematic review \and threat modeling \and security metrics}
+\keywords{Adversarial Machine Learning \and Theory-Practice Gap \and Systematic Review \and Threat Modeling \and Security Metrics.}
 \end{abstract}
 
 %==============================================================================
 \section{Introduction}
 \label{sec:intro}
 
-Adversarial machine learning (AML) studies how carefully crafted inputs can cause ML models to fail in unexpected ways. Over the past decade, the field has demonstrated attacks including imperceptible perturbations causing image misclassification~\cite{szegedy2013intriguing,goodfellow2014explaining}, training-time poisoning implanting hidden backdoors~\cite{gu2017badnets}, and privacy attacks extracting sensitive information~\cite{shokri2017membership,carlini2021extracting}. A corresponding body of defenses has emerged, including adversarial training~\cite{madry2018towards}, certified robustness~\cite{cohen2019certified}, and detection-based approaches~\cite{li2022blacklight}.
-
-However, a fundamental question persists: \emph{How well do the assumptions underlying academic research correspond to the constraints of deployed systems?}
-
-In 2023, Apruzzese et al.~\cite{apruzzese2022real} published an influential analysis documenting a significant gap between academic AML research and practical security needs. Their central observation was that academic attacks frequently assume adversaries can compute gradients through target models, while real-world attackers rarely have such access. Moreover, simpler methods---social engineering, basic input manipulation, system-level exploits---often suffice for malicious purposes.
+In 2023, Apruzzese et al.~\cite{apruzzese2022real} documented a significant gap between academic adversarial machine learning (AML) research and practical security needs. Their central observation: academic attacks frequently assume adversaries can compute gradients through target models, while real-world attackers rarely have such access.
 
 This paper asks: \emph{four years later, has the research community addressed these concerns?}
 
-We systematically analyzed 454 adversarial ML papers published from 2022 through 2025 at ACM CCS (118 papers), IEEE S\&P (79), NDSS (49), and USENIX Security (208). Each paper was evaluated across dimensions capturing practical relevance: threat model realism, gradient and query requirements, real-system validation, and consideration of economic factors. We introduce a quantitative \emph{Gap Score} framework that reduces these dimensions to a tractable 0--6 scale for comparative analysis.
+We systematically analyzed 454 adversarial ML papers published from 2022 through 2025 at ACM CCS (118 papers), IEEE S\&P (79), NDSS (49), and USENIX Security (208). Each paper was evaluated across dimensions capturing practical relevance: threat model realism, gradient and query requirements, real-system validation, and consideration of economic factors. We introduce a quantitative \emph{Gap Score} framework that reduces these dimensions to a tractable 0 to 6 scale for comparative analysis.
 
 Our contributions are:
-\begin{enumerate}[noitemsep]
+\begin{enumerate}
     \item A large-scale systematic analysis of 454 papers across four security venues, quantifying the theory-practice gap along six dimensions.
     \item A novel Gap Score framework for measuring divergence from practical deployment conditions.
     \item Temporal trend analysis showing the gap has not meaningfully narrowed from 2022 to 2025.
@@ -63,233 +52,144 @@ Our contributions are:
 \section{Background and Motivation}
 \label{sec:background}
 
-\paragraph{Adversarial vulnerabilities.}
-Modern deep learning models are susceptible to adversarial examples---inputs modified to cause incorrect predictions~\cite{szegedy2013intriguing}. Goodfellow et al.~\cite{goodfellow2014explaining} attributed this to linear behavior in high-dimensional spaces and introduced the Fast Gradient Sign Method (FGSM). Subsequent work developed increasingly sophisticated attacks~\cite{carlini2017towards,moosavi2016deepfool} and defenses~\cite{madry2018towards,papernot2016distillation}, establishing an arms race dynamic~\cite{carlini2019evaluating,tramer2020adaptive}.
-
-\paragraph{Threat models.}
-Threat model specification is fundamental to security research. White-box models assume complete access to model internals, enabling gradient computation. Black-box models assume query-only access~\cite{papernot2017practical}. Gray-box models assume partial knowledge. Apruzzese et al.~\cite{apruzzese2022real} emphasized that real-world attackers almost never have white-box access, yet it remains the dominant assumption in academic work.
-
-\paragraph{The theory-practice gap.}
-Several studies have documented the disconnect between academic AML and deployment realities. Kumar et al.~\cite{kumar2020adversarial} found widespread uncertainty among practitioners about assessing adversarial risks. Grosse et al.~\cite{grosse2024practical} surveyed 271 industry practitioners finding that researchers frequently overestimate realistic attacker capabilities. Mink et al.~\cite{mink2023barriers} identified organizational barriers to defense deployment. Arp et al.~\cite{arp2022dos} conducted a meta-analysis revealing widespread methodological pitfalls in security research. These studies motivate our large-scale quantitative measurement of the gap.
+AML research has established an arms race between increasingly sophisticated attacks and defenses~\cite{carlini2019evaluating,tramer2020adaptive}. Threat models range from white-box (full model access enabling gradient computation) to black-box (query-only access) to gray-box (partial knowledge). However, concerns about practical relevance have intensified. Grosse et al.~\cite{grosse2024practical} surveyed 271 industry practitioners finding that researchers frequently overestimate realistic attacker capabilities. Apruzzese et al.~\cite{apruzzese2022real} observed that academic attacks frequently assume gradient access, while real-world attackers almost never have white-box access. These studies motivate our large-scale quantitative measurement of whether the gap has narrowed.
 
 %==============================================================================
 \section{Methodology}
 \label{sec:methodology}
 
-\subsection{Data Collection}
+We systematically reviewed all adversarial ML papers published from 2022 through 2025 at four premier security venues. Papers were identified through keyword searches (including ``adversarial,'' ``backdoor,'' ``poisoning,'' ``robustness'') across proceedings and digital libraries, supplemented by cross-referencing papers cited in Apruzzese et al.~\cite{apruzzese2022real}. Our dataset comprises 454 papers: ACM CCS contributed 118 (26.0\%), IEEE S\&P 79 (17.4\%), NDSS 49 (10.8\%), and USENIX Security 208 (45.8\%), spanning 89 papers from 2022, 136 from 2023, 198 from 2024, and 31 from 2025 (Fig.~\ref{fig:dataset}). Each paper was coded on dimensions adapted from Apruzzese et al.: research focus (G1: attack, defense, or both), attack type (G2: evasion, poisoning, privacy, or multiple), data domain (G4: images, text, audio, malware, or other), threat model (T1: white-box, black-box, or gray-box), gradient access (Q1), query budget (Q2: high $>$1000 or low), real-system testing (G7), code release (G6), and economic consideration (G5). The coding was performed using OpenAI's GPT-4o model (temperature=0) with structured prompts explicitly defining each dimension. For each paper, we extracted the full text using PyPDF2 and provided it to the model along with a fixed-format prompt requiring responses for all 12 dimensions. This AI-assisted approach enabled systematic analysis at scale, though it introduces potential classification errors discussed in our limitations.
 
-We systematically reviewed all adversarial ML papers published from 2022 through 2025 at four premier security venues. Papers were identified through keyword searches (including ``adversarial,'' ``backdoor,'' ``poisoning,'' ``robustness'') across proceedings and digital libraries, supplemented by cross-referencing papers cited in Apruzzese et al.~\cite{apruzzese2022real}. Each candidate was verified to confirm primary focus on adversarial ML topics.
-
-Our dataset comprises 454 papers: ACM CCS contributed 118 (26.0\%), IEEE S\&P 79 (17.4\%), NDSS 49 (10.8\%), and USENIX Security 208 (45.8\%). The temporal distribution includes 89 papers from 2022, 136 from 2023, 198 from 2024, and 31 from 2025 (partial year). Figure~\ref{fig:dataset} shows the distribution.
-
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig01_dataset_overview.png}
-    \caption{Distribution of the 454 adversarial ML papers across four security conferences from 2022 through 2025.}
+    \includegraphics[width=\textwidth]{fig01_dataset_overview.png}
+    \caption{Distribution of the 454 adversarial ML papers across four security conferences from 2022 through 2025}
     \label{fig:dataset}
 \end{figure}
 
-\subsection{Coding Framework}
-
-Each paper was coded on dimensions adapted from Apruzzese et al.~\cite{apruzzese2022real}:
-
-\begin{itemize}[noitemsep]
-    \item \textbf{Research Focus (G1):} Attack (60\%), defense (39\%), or both (2\%).
-    \item \textbf{Attack Type (G2):} Evasion, poisoning/backdoor, privacy, or multiple.
-    \item \textbf{Data Domain (G4):} Images, text, audio, malware, or other.
-    \item \textbf{Threat Model (T1):} White-box, black-box, or gray-box.
-    \item \textbf{Gradient Access (Q1):} Whether the method requires gradients.
-    \item \textbf{Query Budget (Q2):} High ($>$1000 queries) or low.
-    \item \textbf{Real System Testing (G7):} Evaluation on deployed systems.
-    \item \textbf{Code Release (G6):} Public availability of artifacts.
-    \item \textbf{Economic Consideration (G5):} Discussion of costs or incentives.
-\end{itemize}
-
-\subsection{Gap Score}
-
-To quantify divergence from practical conditions, we computed a Gap Score based on six binary indicators:
-
-\begin{enumerate}[noitemsep,label=(\arabic*)]
-    \item Assumes white-box adversary access.
-    \item Requires gradient computation from target model.
-    \item Assumes high query budget ($>$1000 queries).
-    \item Requires substantial computational resources.
-    \item Lacks real-system or deployment testing.
-    \item Omits economic or organizational factors.
-\end{enumerate}
-
-Each paper receives a score from 0 (aligned with practical constraints) to 6 (entirely idealized assumptions). While this heuristic assigns equal weight to factors that may differ in importance, it provides a tractable measure for cross-venue and temporal comparison.
+We computed a \emph{Gap Score} (0 to 6) summing six binary indicators: (1) white-box access, (2) gradient computation, (3) high query budget ($>$1000), (4) substantial computational resources ($>$100 GPU-hours), (5) no real-system testing, and (6) no economic consideration. Real-system testing requires production deployments with real users (laboratory testbeds do not qualify). White-box assumptions can be appropriate for open-source models, insider threats, or training-time attacks; our Gap Score flags potential misalignment with typical deployment constraints, not universal inappropriateness.
 
 %==============================================================================
 \section{Quantitative Findings}
 \label{sec:findings}
 
-\begin{figure}[t]
+Our analysis reveals several dimensions where research practices diverge from deployment realities. Figure~\ref{fig:gap_overview} summarizes the key gap indicators across all 454 papers. We report standalone results for five dimensions (real-world testing, gradient dependency, threat models, query budgets, and domain distribution); the computational resources dimension contributes to the Gap Score but is not reported separately as it correlates strongly with gradient access and is difficult to assess consistently across heterogeneous attack types and domains.
+
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig02_theory_practice_gap.png}
-    \caption{Key indicators of the theory-practice gap: percentage of papers exhibiting each characteristic across all 454 papers.}
+    \includegraphics[width=\textwidth]{fig02_theory_practice_gap.png}
+    \caption{Key indicators of the theory-practice gap across all 454 papers}
     \label{fig:gap_overview}
 \end{figure}
 
-Our analysis reveals several dimensions where research practices diverge from deployment realities. Figure~\ref{fig:gap_overview} summarizes the key gap indicators.
+\paragraph{Real-World Evaluation.}
+Only \textbf{5.3\%} [95\% CI: 3.6\%, 7.6\%] of papers (24 of 454) included experiments on operational systems; the remainder relied on offline datasets, simulated environments, or research prototypes (Fig.~\ref{fig:real_world}). Papers that do test on real systems often reveal significant gaps between laboratory and field performance. Nayan et al.~\cite{nayan2024sok} found many academic model extraction attacks difficult to reproduce on actual services, and Layton et al.~\cite{layton2024sok} observed similar patterns for deepfake detection on realistic distributions.
 
-\subsection{Real-World Evaluation}
-
-Only \textbf{5.3\%} of papers (24 of 454) included experiments on operational systems or realistic deployment settings; the remainder relied on offline datasets, simulated environments, or research prototypes.
-
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig05_real_world_testing.png}
+    \includegraphics[width=\textwidth]{fig05_real_world_testing.png}
     \caption{Rate of real-world testing: only 5.3\% of papers evaluated on deployed systems.}
     \label{fig:real_world}
 \end{figure}
 
-Deployment introduces constraints absent from controlled benchmarks: proprietary model formats, complex security pipelines, latency requirements, and regulatory obligations. Papers that do test on real systems often reveal significant gaps between laboratory and field performance. Nayan et al.~\cite{nayan2024sok} found many academic model extraction attacks difficult to reproduce on actual services. Layton et al.~\cite{layton2024sok} observed similar patterns for deepfake detection when evaluated on realistic distributions.
+\paragraph{Gradient Dependency.}
+\textbf{67.8\%} [95\% CI: 63.4\%, 72.0\%] of papers require gradient information from target models, changing only modestly from 68.2\% in 2022 to 65.9\% in early 2025 (Fig.~\ref{fig:gradient}). Some recent work has embraced gradient-free approaches. For example, Eykholt et al.~\cite{eykholt2023uret} developed URET for domain-specific robustness evaluation, and LLM jailbreak attacks operate without gradients using natural language interaction~\cite{liu2024jailbreaking,yu2024jailbreak}. However, these remain exceptions.
 
-\subsection{Reliance on Gradients}
-
-We found that \textbf{67.8\%} of papers require gradient information from target models. This proportion changed only modestly from 2022 (68.2\%) to early 2025 (65.9\%), as shown in Fig.~\ref{fig:gradient}.
-
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig04_gradient_dependency.png}
+    \includegraphics[width=\textwidth]{fig04_gradient_dependency.png}
     \caption{Gradient dependency over time: 67.8\% overall, with no meaningful reduction.}
     \label{fig:gradient}
 \end{figure}
 
-Some recent work has embraced gradient-free approaches. Eykholt et al.~\cite{eykholt2023uret} developed URET, evaluating robustness through domain-specific transformations. In the LLM domain, jailbreak attacks operate without gradients using natural language interaction~\cite{liu2024jailbreaking,yu2024jailbreak}. However, these remain exceptions.
+\paragraph{Threat Models and Query Budgets.}
+\textbf{63.2\%} [95\% CI: 58.7\%, 67.5\%] of papers assume white-box adversaries; only 34.1\% consider black-box and 2.6\% gray-box scenarios (Fig.~\ref{fig:threat_model}). Among papers involving queries, \textbf{80.4\%} [95\% CI: 76.5\%, 83.8\%] assume budgets exceeding 1000 queries (Fig.~\ref{fig:query}), though notable exceptions exist: Tao et al.~\cite{tao2023hardbeat} achieved high attack success under hard-label constraints with few queries, and Wan et al.~\cite{wan2024bounceattack} developed a decision-based approach requiring minimal queries.
 
-\subsection{Threat Model Assumptions}
-
-\textbf{63.2\%} of papers assume white-box adversaries with complete model knowledge. Only 34.1\% consider black-box scenarios, and 2.6\% explore gray-box settings (Fig.~\ref{fig:threat_model}). This distribution contrasts with deployment realities where attackers rarely possess internal model access.
-
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig03_threat_model.png}
+    \includegraphics[width=\textwidth]{fig03_threat_model.png}
     \caption{Threat model assumptions: white-box scenarios dominate at 63.2\%.}
     \label{fig:threat_model}
 \end{figure}
 
-\subsection{Query Budget and Efficiency}
-
-Among papers involving model queries, \textbf{80.4\%} assume high query budgets exceeding 1000 queries. In practice, query rates are constrained by cost, rate limiting, and anomaly detection.
-
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig06_query_budget.png}
+    \includegraphics[width=\textwidth]{fig06_query_budget.png}
     \caption{Over 80\% of relevant papers assumed high query budgets ($>$1000).}
     \label{fig:query}
 \end{figure}
 
-Notable exceptions demonstrate query-efficient alternatives. Tao et al.~\cite{tao2023hardbeat} proposed HARDBEAT, achieving high attack success with few queries under hard-label constraints. Wan et al.~\cite{wan2024bounceattack} developed BounceAttack, a decision-based approach requiring minimal queries.
+\paragraph{Domain Bias and Gap Score.}
+Approximately \textbf{65\%} of papers focus on image-based tasks, with text (11\%), audio (7\%), malware (6\%), and other domains (12\%) comprising the remainder (Fig.~\ref{fig:domains}). Per-domain analysis reveals substantial variation in practical alignment. Image-focused research exhibits the highest Gap Score (3.57), with 83.3\% requiring gradients and only 1.7\% testing on real systems. In contrast, text/LLM research shows a Gap Score of 2.62 (43.8\% gradient dependency), audio research 1.83 (26.7\% gradients, 36.7\% real-system testing), and malware research 2.41 (37.0\% gradients). This suggests that the overall gap is driven primarily by vision-centric research, while emerging domains like LLMs demonstrate greater practical alignment. The average Gap Score across all papers was \textbf{3.17 out of 6}, with 15.0\% [95\% CI: 12.0\%, 18.6\%] scoring 0 to 1 (Fig.~\ref{fig:gap_score}). Cross-venue variation was minimal and not statistically significant (p = 0.20 to 0.65): CCS averaged 3.04, NDSS 3.12, S\&P 3.18, and USENIX 3.25.
 
-\subsection{Dominant Data Domains}
-
-Approximately \textbf{65\%} of papers focus on image-based tasks, with text (11\%), audio (7\%), malware (6\%), and other domains (12\%) comprising the remainder (Fig.~\ref{fig:domains}). This concentration reflects historical development around vision benchmarks but creates blind spots: assumptions suitable for images may not transfer to other domains. Kireev et al.~\cite{kireev2023cost} demonstrated that cost-based perturbation metrics may be more meaningful than pixel norms in financial applications.
-
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig08_data_domains.png}
+    \includegraphics[width=\textwidth]{fig08_data_domains.png}
     \caption{Data domain distribution: image-focused research dominates at 65\%.}
     \label{fig:domains}
 \end{figure}
 
-\subsection{Gap Score Distribution}
-
-The average Gap Score was \textbf{3.17 out of 6}, with most papers scoring 3--4. Only approximately 10.5\% scored 0 or 1, indicating close alignment with deployment constraints. Cross-venue comparison revealed minimal variation: CCS averaged 3.04, NDSS 3.12, S\&P 3.18, and USENIX 3.25 (Fig.~\ref{fig:gap_score}).
-
-\begin{figure}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig12_gap_score.png}
+    \includegraphics[width=\textwidth]{fig12_gap_score.png}
     \caption{Gap Score distribution: the typical paper incorporates about half of the tracked impractical assumptions.}
     \label{fig:gap_score}
 \end{figure}
 
-%==============================================================================
-\section{Thematic Findings}
-\label{sec:thematic}
-
-Beyond aggregate statistics, thematic analysis reveals recurring patterns across venues.
-
-\paragraph{Utility versus robustness trade-offs.}
-Many defenses exchange robustness for accuracy, latency, or usability. PatchCleanser and PatchCure~\cite{xiang2022patchcleanser,xiang2024patchcure} provide provable protection against adversarial patches but introduce processing overhead. Ahmed et al.~\cite{ahmed2022keyword} observed that voice interface defenses can reduce responsiveness. Privacy-preserving training methods can degrade model utility~\cite{liu2022mldoctor,tang2022membership}. Recent work including MIST~\cite{li2024mist} and CAMP~\cite{wang2025camp} reports robustness improvements with reduced utility costs.
-
-\paragraph{Evaluation methodology and realism.}
-Conventional metrics may misrepresent security-relevant risk. Carlini et al.~\cite{carlini2022membership} argue that privacy evaluations should focus on low false-positive rates and worst-case behavior. Ma et al.~\cite{ma2024avara} used virtual-reality driving experiments and found that perturbations deemed small under $L_p$ norms can remain perceptible or behaviorally relevant, suggesting that mathematical distance metrics do not reliably predict human perception.
-
-\paragraph{Physical deployment and system integration.}
-End-to-end settings introduce failure modes absent from isolated model testing. Research has moved robustness evaluation into physical and system-level contexts including autonomous driving~\cite{jia2022physical,cao2023lidar,kobayashi2025shadow}, X-ray inspection~\cite{liu2023xadv}, and acoustic systems~\cite{ahmed2023tubes}. Pipeline interactions add further complexity: Debenedetti et al.~\cite{debenedetti2024privacy} showed that filtering sensitive information can create privacy side channels, and Nasr et al.~\cite{nasr2025magika} demonstrated evasion through file-type manipulation in production ML pipelines.
-
-\paragraph{Attack and defense evolution.}
-Recent attacks increasingly target persistence and system interactions. Prompt-based LLM attacks automate jailbreaking~\cite{chao2023jailbreaking,mehrotra2024tree}. Backdoors persist through model merging~\cite{wang2025mergebackdoor} and continual learning~\cite{guo2025persistent}. Defenses have become more context-aware, including Blacklight for detecting query patterns~\cite{li2022blacklight}, JBShield for jailbreak detection~\cite{zhang2025jbshield}, and SafeSpeech for degrading voice-cloning data~\cite{zhang2025safespeech}.
-
-\paragraph{Economic and organizational factors.}
-A small subset of papers addresses incentives. Cong et al.~\cite{cong2022sslguard} note that stealing self-supervised models can be inexpensive relative to training costs. Lu et al.~\cite{lu2024neural} show that watermark removal requires modest resources. Mink et al.~\cite{mink2023barriers} document unclear ownership of adversarial risk and limited capacity to integrate adversarial testing into development cycles.
+\paragraph{Research Patterns.}
+Beyond these statistics, three patterns emerge. First, defenses often trade robustness for accuracy, latency, or usability~\cite{xiang2022patchcleanser,ahmed2022keyword,liu2022mldoctor}, though recent work reports reduced utility costs~\cite{li2024mist,wang2025camp}. Second, research increasingly addresses physical and system-level contexts including autonomous driving~\cite{jia2022physical}, production ML pipelines~\cite{nasr2025magika}, and LLM jailbreaking~\cite{chao2023jailbreaking}. Third, only a small subset addresses economic incentives or organizational factors~\cite{mink2023barriers}.
 
 %==============================================================================
-\section{Real-World Adversarial Incidents}
-\label{sec:incidents}
+\section{Why This Gap Matters: Foundation Models and Emerging Threats}
+\label{sec:foundation}
 
-To illustrate the disconnect between academic assumptions and operational threats, we examine documented real-world incidents.
+The proliferation of large language models and multimodal foundation models has introduced adversarial challenges that make the theory-practice gap more consequential. These systems process discrete tokens, accept multimodal inputs, operate through rate-limited APIs, and increasingly control real-world actions through agentic workflows. LLM jailbreaking research exhibits the same gap patterns: automated methods like GCG~\cite{zou2023universal} require white-box gradient access, while practical attacks like PAIR~\cite{chao2023jailbreaking} and TAP~\cite{mehrotra2024tree} succeed with approximately 20 queries using black-box LLM-based refinement. Prompt injection attacks~\cite{liu2024prompt,greshake2023youve} manipulate model behavior through malicious instructions in retrieved content, exploiting system integration rather than model internals. Vision-language models introduce cross-modal attack surfaces where adversarial images trigger harmful text generation~\cite{qi2024visual} and encoded text bypasses filters~\cite{gong2024figstep}, while agentic systems with tool access face amplified risks from indirect prompt injection~\cite{zhan2024injecagent}.
 
-\paragraph{AI-orchestrated cyber espionage.}
-In November 2025, Anthropic disclosed a state-sponsored cyber espionage campaign in which an AI agent autonomously conducted reconnaissance, vulnerability analysis, exploit generation, and data exfiltration against approximately thirty global targets~\cite{anthropic2025ai}. The AI performed an estimated 80--90\% of operational workload. The campaign exploited agentic execution, tool access, and jailbreaking through task decomposition---none of which required gradient access or white-box model knowledge.
+Real-world incidents demonstrate these threats. In November 2025, Anthropic disclosed a state-sponsored campaign where an AI agent autonomously conducted reconnaissance, exploit generation, and data exfiltration against approximately thirty targets~\cite{anthropic2025ai}, performing 80 to 90\% of operational workload (Fig.~\ref{fig:claude}). The attack exploited agentic execution and jailbreaking, not gradient access. Similarly, EchoLeak exfiltrated data from Microsoft 365 Copilot through malicious documents~\cite{aim2025echoleak}, and training data extraction from ChatGPT succeeded through structured prompts at modest cost~\cite{nasr2023scalable}. Foundation models pose systemic risks because vulnerabilities in widely-deployed base models propagate across downstream applications. The most effective automated attacks require white-box access or substantial queries, yet commercial APIs provide only black-box access with rate limits. Deployed models receive frequent updates, invalidating discovered vulnerabilities. These characteristics amplify the consequences of the theory-practice gap, as academic research optimizes for threat models that rarely materialize while operational threats exploit system integration, multimodal capabilities, and automation workflows that academic work largely ignores.
 
-\begin{figure}[t]
+\begin{figure}[!htb]
     \centering
-    \includegraphics[width=0.95\textwidth]{claude.png}
-    \caption{The lifecycle of an AI-orchestrated cyberattack, showing human-led targeting transitioning to largely AI-driven execution~\cite{anthropic2025ai}.}
+    \includegraphics[width=\textwidth]{claude.png}
+    \caption{The lifecycle of an AI-orchestrated cyberattack, showing human-led targeting transitioning to largely AI-driven execution~\cite{anthropic2025ai}}
     \label{fig:claude}
 \end{figure}
 
-\paragraph{Prompt injection and data exfiltration.}
-EchoLeak, a zero-click indirect prompt injection vulnerability in Microsoft 365 Copilot, enabled exfiltration of sensitive enterprise data through maliciously crafted documents~\cite{aim2025echoleak}. AgentFlayer demonstrated supply-chain prompt injection against ChatGPT connectors~\cite{zenity2025agentflayer}. Training data extraction from deployed ChatGPT models was achieved through structured prompts at modest cost~\cite{nasr2023scalable}, and partial model extraction attacks succeeded against production APIs using only query access~\cite{carlini2024stealing}.
-
-These cases share a common pattern: real-world adversaries exploit system integration points, automation, and human trust rather than computing optimal perturbations---precisely the gap that Apruzzese et al.\ identified and that our quantitative analysis confirms remains unaddressed.
-
+\clearpage
 %==============================================================================
 \section{Temporal Trends}
 \label{sec:trends}
 
-\begin{figure}[t]
+Figure~\ref{fig:trends} summarizes how indicators evolved following the Apruzzese et al.\ critique.
+
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig11_yearly_trends.png}
-    \caption{Temporal trends on key gap indicators from 2022 to 2025.}
+    \includegraphics[width=\textwidth]{fig11_yearly_trends.png}
+    \caption{Temporal trends on key gap indicators from 2022 to 2025}
     \label{fig:trends}
 \end{figure}
 
-Figure~\ref{fig:trends} summarizes how indicators evolved following the Apruzzese et al.\ critique:
+Real-world testing remained near 5\% across all years, while gradient dependency stayed high at approximately 67 to 69\%. White-box assumptions remained dominant at 60 to 64\%, and high query budgets declined only slightly from approximately 80\% to the mid-70s by 2025. Domain bias persisted with image data dominating approximately 65\%, and economic analysis remained below 12\% without meaningful increase. Logistic regression with year as predictor confirms no statistically significant temporal trends for any indicator (all p $>$ 0.28), supporting the conclusion that the gap has not meaningfully narrowed since the Apruzzese et al.\ critique.
 
-\begin{itemize}[noitemsep]
-    \item \textbf{Real-world testing} remained near 5\% across all years.
-    \item \textbf{Gradient dependency} stayed high at approximately 67--69\%.
-    \item \textbf{White-box assumptions} remained dominant at 60--64\%.
-    \item \textbf{High query budgets} declined slightly from $\sim$80\% to the mid-70s by 2025.
-    \item \textbf{Domain bias} persisted with image data dominating $\sim$65\%.
-    \item \textbf{Economic analysis} remained below 12\% without meaningful increase.
-\end{itemize}
-
-The data show limited movement on core gap indicators through early 2025, alongside gradual broadening of research topics and modalities.
-
+\clearpage
 %==============================================================================
 \section{Cross-Venue Analysis}
 \label{sec:venues}
 
-\begin{figure}[t]
+While all four venues exhibited similar overall patterns (chi-square tests: all p $>$ 0.20), each demonstrated distinct emphases (Fig.~\ref{fig:heatmap}). CCS papers frequently addressed model theft, watermarking, and human factors within broader system contexts. S\&P publications featured systematic evaluations with explicit threat model justification. NDSS papers often explored physical-world attacks and federated learning, grounding evaluations in realistic settings. USENIX contributed the largest volume across diverse topics, with several papers testing on real platforms.
+
+Comparing attack- and defense-oriented papers (Fig.~\ref{fig:atk_def}), attack papers showed significantly higher gradient dependency (72.7\% vs. 59.4\%, p = 0.004) and query budgets (90.0\% vs. 64.6\%, p $<$ 0.001). However, both categories showed similarly low rates of real-system testing (approximately 5\%, p = 0.832), indicating the gap persists regardless of research focus.
+
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig10_conference_comparison.png}
-    \caption{Comparison of adversarial ML research characteristics across conferences.}
+    \includegraphics[width=\textwidth]{fig10_conference_comparison.png}
+    \caption{Comparison of adversarial ML research characteristics across conferences}
     \label{fig:heatmap}
 \end{figure}
 
-While all four venues exhibited similar overall patterns, each demonstrated distinct emphases (Fig.~\ref{fig:heatmap}). CCS papers frequently addressed model theft, watermarking, and human factors within broader system contexts. S\&P publications featured systematic evaluations with explicit threat model justification. NDSS papers often explored physical-world attacks and federated learning, grounding evaluations in realistic settings. USENIX contributed the largest volume across diverse topics, with several papers testing on real platforms.
-
-Comparing attack- and defense-oriented papers, defense papers were marginally more likely to assume black-box access or avoid gradient dependence, with slightly higher real-system testing rates. Nonetheless, only a small minority conducted deployed evaluations across all categories.
-
-\begin{figure}[t]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.95\textwidth]{fig09_attack_vs_defense.png}
-    \caption{Comparison of practicality metrics between attack- and defense-focused papers.}
+    \includegraphics[width=\textwidth]{fig09_attack_vs_defense.png}
+    \caption{Comparison of practicality metrics between attack- and defense-focused papers}
     \label{fig:atk_def}
 \end{figure}
 
@@ -297,39 +197,23 @@ Comparing attack- and defense-oriented papers, defense papers were marginally mo
 \section{Recommendations}
 \label{sec:recommendations}
 
-\paragraph{For researchers.}
-Where feasible, validate methods under deployment-like conditions including limited queries, partial knowledge, and realistic computational constraints. When white-box access or large query budgets are assumed, justify explicitly how attackers could plausibly obtain them. Evaluate defenses against adaptive adversaries and report utility costs alongside robustness metrics. Diversify beyond image classification to tabular data, graphs, time-series, and multimodal systems.
-
-\paragraph{For conference organizers and reviewers.}
-Review criteria can more explicitly assess threat model realism. Conferences can incentivize practical work through artifact evaluation and recognition for deployed evaluations. Dedicated tracks focusing on industry constraints can highlight bridging research. Encouraging negative results---showing attacks fail under realistic constraints---would provide valuable information.
-
-\paragraph{For industry practitioners.}
-Adjust risk assessments for deployment realities rather than accepting laboratory success rates. Prioritize defenses against realistic threats: black-box attacks, low query budgets, and economically motivated adversaries. Contributing anonymized logs of real attack attempts would ground academic research in operational reality.
-
-\paragraph{For funders.}
-Fund industry-academic partnerships with required real-world validation. Support long-term deployment studies. Incentivize replication studies validating academic claims against production systems. Create competitions with realistic constraints.
+Researchers should validate methods under deployment-like conditions including limited queries, partial knowledge, and realistic computational constraints, with explicit justification when white-box access or large query budgets are assumed. Defenses should be evaluated against adaptive adversaries with utility costs reported alongside robustness metrics, and the field would benefit from diversification beyond image classification to tabular data, graphs, time-series, and multimodal systems. Conference organizers and reviewers can more explicitly assess threat model realism in review criteria, incentivize practical work through artifact evaluation and recognition for deployed evaluations, and encourage negative results showing attacks fail under realistic constraints. Industry practitioners should adjust risk assessments for deployment realities rather than accepting laboratory success rates, prioritize defenses against realistic threats (black-box attacks, low query budgets, economically motivated adversaries), and contribute anonymized logs of real attack attempts to ground academic research in operational reality. Funders can catalyze change by requiring real-world validation in industry-academic partnerships, supporting long-term deployment studies, incentivizing replication studies validating academic claims against production systems, and creating competitions with realistic constraints that align research incentives with practical security needs.
 
 %==============================================================================
 \section{Limitations}
 \label{sec:limitations}
 
-This study has several limitations. Our focus on four security conferences may not capture patterns at ML venues (NeurIPS, ICML, ICLR) where different norms may apply. The Gap Score reduces complex trade-offs to binary decisions with equal weighting, potentially oversimplifying nuanced situations.
-
-The coding of 454 papers was conducted using AI-assisted analysis to operationalize the Apruzzese et al.\ framework at scale. While this enabled systematic coverage infeasible through manual review alone, it introduces potential classification errors. We treat all findings as preliminary and encourage manual replication on subsamples to validate coding decisions.
-
-The field evolves rapidly; our dataset ends in early 2025, and research distributions may shift. What constitutes ``practical'' is context-dependent and may change as technology and attacker capabilities evolve.
-
-Despite these caveats, we believe this synthesis of quantitative trends and qualitative themes provides useful orientation for researchers and practitioners seeking to understand the state of adversarial ML research and its relationship to deployment realities.
+This study has several limitations. Our focus on four security conferences may not capture patterns at ML venues (NeurIPS, ICML, ICLR) where different norms may apply. The Gap Score reduces complex trade-offs to binary decisions with equal weighting, potentially oversimplifying nuanced situations; alternative weighting schemes informed by practitioner priorities or domain-specific constraints could yield different rankings. Our threshold choices (e.g., $>$1000 queries, $>$100 GPU-hours) represent reasonable but ultimately arbitrary cutoffs, and sensitivity analysis with alternative thresholds would strengthen the findings. The coding of 454 papers was conducted using AI-assisted analysis (GPT-4o, temperature=0) to operationalize the Apruzzese et al.\ framework at scale. While this enabled systematic coverage infeasible through manual review alone, it introduces potential classification errors and lacks formal inter-annotator reliability measures. The reported percentages should be interpreted as estimates rather than precise measurements. The field evolves rapidly; our dataset ends in early 2025, and research distributions may shift as technology and attacker capabilities evolve. The real-world incidents cited serve as illustrative examples rather than systematic evidence. Despite these caveats, this synthesis of quantitative trends and qualitative themes provides useful orientation for understanding the state of adversarial ML research and its relationship to deployment realities.
 
 %==============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-Our systematic analysis of 454 adversarial ML papers published from 2022 through 2025 reveals that the theory-practice gap identified by Apruzzese et al.\ has not meaningfully narrowed. The quantitative evidence is stark: 94.7\% of papers never test on real systems, 67.8\% require gradients that real attackers lack, 80.4\% assume query budgets that deployed systems do not allow, and 63.2\% assume white-box access that real deployments do not provide. The average Gap Score of 3.17/6 indicates the typical paper makes roughly half of the impractical assumptions we measured.
+Our systematic analysis of 454 adversarial ML papers published from 2022 through 2025 reveals that the theory-practice gap identified by Apruzzese et al.\ has not meaningfully narrowed. The quantitative evidence is stark: 94.7\% of papers never test on real systems, 67.8\% require gradients that real attackers lack, 80.4\% assume query budgets that deployed systems do not allow, and 63.2\% assume white-box access that real deployments do not provide. The average Gap Score of 3.17 out of 6 indicates the typical paper makes roughly half of the impractical assumptions we measured.
 
-Real-world adversarial incidents---from AI-orchestrated cyber espionage to prompt injection in enterprise tools---demonstrate that operational threats exploit system integration, automation, and human trust rather than gradient-based optimization. Bridging the theory-practice gap requires coordinated structural changes: realistic threat models as defaults, incentivized real-world validation, domain diversification, and consideration of economic and human factors.
+Real-world adversarial incidents, from AI-orchestrated cyber espionage to prompt injection in enterprise tools, demonstrate that operational threats exploit system integration, automation, and human trust rather than gradient-based optimization. Bridging the theory-practice gap requires coordinated structural changes: realistic threat models as defaults, incentivized real-world validation, domain diversification, and consideration of economic and human factors.
 
-The complete coded dataset of all 454 papers is provided as supplementary material to enable replication and extension.
+The complete coded dataset of all 454 papers, along with the full codebook, GPT-4o prompts, Python analysis scripts, and figure generation code, will be provided as supplementary material and made publicly available on GitHub upon acceptance under an open license. The dataset includes paper metadata, raw coding labels for all 12 dimensions, computed Gap Scores, and statistical analysis results.
 
 %==============================================================================
 \begin{credits}
@@ -339,5 +223,127 @@ The authors have no competing interests to declare that are relevant to the cont
 
 \bibliographystyle{splncs04}
 \bibliography{ref}
+
+%==============================================================================
+\appendix
+
+\section*{Appendix}
+
+\section{Coding Framework (Codebook)}
+\label{appendix:codebook}
+
+Table~\ref{tab:codebook} presents the complete coding framework with 12 dimensions organized into three categories: General (G1--G7), Threat Model (T1--T2), and Query/Computation (Q1--Q3). Each dimension specifies allowed values and operational definitions used for systematic classification.
+
+\begin{table}[htbp]
+\caption{Complete coding framework with 12 dimensions, allowed values, and operational definitions}
+\label{tab:codebook}
+\centering
+\small
+\begin{tabular}{llp{4cm}p{5cm}}
+\hline
+\textbf{ID} & \textbf{Dimension} & \textbf{Options} & \textbf{Definition} \\
+\hline
+G1 & Focus & atk, def, both & Attack paper, defense paper, or both \\
+G2 & Attack Type & Evasion, Poisoning, Privacy, Multiple, NA & Test-time, training-time, membership/extraction, multiple types, or defense-only \\
+G3 & ML Type & DL, Traditional, Both & Deep learning, classical ML, or both \\
+G4 & Data Type & Images, Text, Audio, Malware, Other & Primary data modality evaluated \\
+G5 & Economics & YES, NO & Any mention of cost, resources, or economics \\
+G6 & Code Released & YES, NO & Source code publicly available \\
+G7 & Real System & YES, NO & Tested on deployed/commercial/production system (not academic datasets) \\
+T1 & Model Knowledge & White-box, Gray-box, Black-box & Full model access, partial/surrogate, or no model knowledge \\
+T2 & Training Data & Full, Partial, None & Complete access, subset/surrogate, or no training data \\
+Q1 & Gradients & YES, NO & Method requires gradient computation \\
+Q2 & Query Budget & High, Low, None & $>$1000 queries, $<$1000 queries, or no queries \\
+Q3 & Computation & High, Low & GPU/significant time vs. CPU/quick execution \\
+\hline
+\end{tabular}
+\end{table}
+
+The Gap Score is computed by summing six binary flags: (1) white-box assumption (T1=White-box), (2) gradient requirement (Q1=YES), (3) high query budget (Q2=High), (4) high computation (Q3=High), (5) no real-system testing (G7=NO), and (6) no economic consideration (G5=NO). Scores range from 0 (fully aligned with practical constraints) to 6 (entirely idealized assumptions).
+
+\section{GPT-4o Analysis Prompt}
+\label{appendix:prompt}
+
+Each paper was analyzed using the following structured prompt with GPT-4o (temperature=0):
+
+\begin{small}
+\begin{verbatim}
+You are analyzing an adversarial machine learning research paper.
+Answer ONLY with the exact options provided.
+
+PAPER:
+Title: [paper title]
+Abstract: [paper abstract]
+Full Text: [complete paper text extracted via PyPDF2]
+
+ANSWER THESE 12 QUESTIONS WITH ONLY THE SPECIFIED OPTIONS:
+
+G1. Focus - Main contribution?
+OPTIONS: atk, def, both
+ANSWER: [atk for attack paper, def for defense paper, both for combined]
+
+G2. Attack Type - What kind of attack/threat?
+OPTIONS: Evasion, Poisoning, Privacy, Multiple, NA
+ANSWER: [Evasion=test-time, Poisoning=training-time, 
+         Privacy=membership/extraction, Multiple=several types, 
+         NA=defense only]
+
+G3. ML Type - Machine learning approach?
+OPTIONS: DL, Traditional, Both
+ANSWER: [DL=deep learning only, Traditional=classical ML, Both=both types]
+
+G4. Data Type - What data is evaluated?
+OPTIONS: Images, Text, Audio, Malware, Other
+ANSWER: [Pick one primary type]
+
+G5. Economics - Cost/resources/economics mentioned?
+OPTIONS: YES, NO
+ANSWER: [YES if ANY mention of cost/resources/economics, NO otherwise]
+
+G6. Code Released - Source code publicly available?
+OPTIONS: YES, NO
+ANSWER: [YES if code is available, NO if not mentioned or not available]
+
+G7. Real System - Tested on real/commercial systems?
+OPTIONS: YES, NO
+ANSWER: [YES if tested on deployed/commercial/production system, 
+         NO if only academic datasets/models]
+
+T1. Model Knowledge - What does attacker know?
+OPTIONS: White-box, Gray-box, Black-box
+ANSWER: [White-box=full access to model, Gray-box=partial 
+         knowledge/surrogate, Black-box=no model knowledge]
+
+T2. Training Data - Attacker's training data access?
+OPTIONS: Full, Partial, None
+ANSWER: [Full=complete access, Partial=subset/surrogate data, 
+         None=no training data]
+
+Q1. Gradients - Requires computing gradients?
+OPTIONS: YES, NO
+ANSWER: [YES if method requires gradient computation, 
+         NO if gradient-free]
+
+Q2. Query Budget - How many queries needed?
+OPTIONS: High, Low, None
+ANSWER: [High=>1000 queries, Low=<1000 queries, None=no queries needed]
+
+Q3. Computation - Computational resources needed?
+OPTIONS: High, Low
+ANSWER: [High=needs GPU/significant time, Low=CPU ok/quick execution]
+
+CRITICAL INSTRUCTIONS:
+- Answer ONLY with the exact option words provided
+- Do not add explanations
+- Format EXACTLY as shown below
+- If unclear from text, make best judgment
+
+REQUIRED FORMAT:
+G1: [answer]
+G2: [answer]
+...
+Q3: [answer]
+\end{verbatim}
+\end{small}
 
 \end{document}
