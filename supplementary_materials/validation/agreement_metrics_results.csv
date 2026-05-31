@@ -1,0 +1,10 @@
+dimension,description,n,agreement_count,agreement_pct,cohens_kappa,krippendorff_alpha,gwet_ac1,pabak,icc_21,interpretation
+G1,Focus (atk/def/both),50,44,88.0,0.8,0.802,0.85,0.76,0.9,Almost Perfect
+G2,Attack Type,50,40,80.0,0.742,0.742,0.753,0.6,0.814,Substantial
+G3,Data Modality,50,43,86.0,0.803,0.805,0.837,0.72,0.852,Almost Perfect
+G4,Economic Analysis,50,50,100.0,,,1.0,1.0,,N/A
+G5,Code Release,50,42,84.0,0.688,0.683,0.681,0.68,0.692,Substantial
+G6,Real System Testing,50,45,90.0,0.749,0.749,0.835,0.8,0.753,Substantial
+T1,Threat Model,50,39,78.0,0.712,0.71,0.729,0.56,0.806,Substantial
+Q1,Gradient Dependency,50,41,82.0,0.729,0.731,0.731,0.64,0.836,Substantial
+Q2,Query Budget,50,26,52.0,0.254,0.171,0.407,0.04,0.62,Fair

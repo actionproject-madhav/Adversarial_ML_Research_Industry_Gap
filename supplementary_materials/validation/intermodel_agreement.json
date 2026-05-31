@@ -1,0 +1,168 @@
+{
+  "intermodel_agreement": [
+    {
+      "dimension": "G1",
+      "description": "Focus",
+      "n": 459,
+      "agreement_pct": 94.3,
+      "kappa": 0.906,
+      "ac1": 0.929,
+      "interpretation": "Almost Perfect"
+    },
+    {
+      "dimension": "G2",
+      "description": "Attack Type",
+      "n": 459,
+      "agreement_pct": 84.1,
+      "kappa": 0.784,
+      "ac1": 0.805,
+      "interpretation": "Substantial"
+    },
+    {
+      "dimension": "G3",
+      "description": "Domain",
+      "n": 459,
+      "agreement_pct": 86.7,
+      "kappa": 0.802,
+      "ac1": 0.847,
+      "interpretation": "Almost Perfect"
+    },
+    {
+      "dimension": "G4",
+      "description": "Economic",
+      "n": 459,
+      "agreement_pct": 92.6,
+      "kappa": 0.342,
+      "ac1": 0.917,
+      "interpretation": "Fair"
+    },
+    {
+      "dimension": "G5",
+      "description": "Code",
+      "n": 459,
+      "agreement_pct": 94.8,
+      "kappa": 0.894,
+      "ac1": 0.897,
+      "interpretation": "Almost Perfect"
+    },
+    {
+      "dimension": "G6",
+      "description": "Real System",
+      "n": 459,
+      "agreement_pct": 88.2,
+      "kappa": 0.656,
+      "ac1": 0.823,
+      "interpretation": "Substantial"
+    },
+    {
+      "dimension": "T1",
+      "description": "Threat Model",
+      "n": 459,
+      "agreement_pct": 59.3,
+      "kappa": 0.474,
+      "ac1": 0.521,
+      "interpretation": "Moderate"
+    },
+    {
+      "dimension": "Q1",
+      "description": "Gradient",
+      "n": 459,
+      "agreement_pct": 56.0,
+      "kappa": 0.362,
+      "ac1": 0.352,
+      "interpretation": "Fair"
+    },
+    {
+      "dimension": "Q2",
+      "description": "Query Budget",
+      "n": 459,
+      "agreement_pct": 54.5,
+      "kappa": 0.377,
+      "ac1": 0.411,
+      "interpretation": "Fair"
+    }
+  ],
+  "vs_human_ground_truth": [
+    {
+      "dimension": "G1",
+      "description": "Focus",
+      "gpt_kappa": 0.8,
+      "gemini_kappa": 0.731,
+      "gpt_agreement_pct": 88.0,
+      "gemini_agreement_pct": 84.0,
+      "closer_to_human": "GPT-4o"
+    },
+    {
+      "dimension": "G2",
+      "description": "Attack Type",
+      "gpt_kappa": 0.742,
+      "gemini_kappa": 0.716,
+      "gpt_agreement_pct": 80.0,
+      "gemini_agreement_pct": 78.0,
+      "closer_to_human": "GPT-4o"
+    },
+    {
+      "dimension": "G3",
+      "description": "Domain",
+      "gpt_kappa": 0.775,
+      "gemini_kappa": 0.685,
+      "gpt_agreement_pct": 84.0,
+      "gemini_agreement_pct": 78.0,
+      "closer_to_human": "GPT-4o"
+    },
+    {
+      "dimension": "G4",
+      "description": "Economic",
+      "gpt_kappa": null,
+      "gemini_kappa": 0.0,
+      "gpt_agreement_pct": 100.0,
+      "gemini_agreement_pct": 94.0,
+      "closer_to_human": "Gemini"
+    },
+    {
+      "dimension": "G5",
+      "description": "Code",
+      "gpt_kappa": 0.688,
+      "gemini_kappa": 0.646,
+      "gpt_agreement_pct": 84.0,
+      "gemini_agreement_pct": 82.0,
+      "closer_to_human": "GPT-4o"
+    },
+    {
+      "dimension": "G6",
+      "description": "Real System",
+      "gpt_kappa": 0.749,
+      "gemini_kappa": 0.733,
+      "gpt_agreement_pct": 90.0,
+      "gemini_agreement_pct": 88.0,
+      "closer_to_human": "GPT-4o"
+    },
+    {
+      "dimension": "T1",
+      "description": "Threat Model",
+      "gpt_kappa": 0.712,
+      "gemini_kappa": 0.673,
+      "gpt_agreement_pct": 78.0,
+      "gemini_agreement_pct": 76.0,
+      "closer_to_human": "GPT-4o"
+    },
+    {
+      "dimension": "Q1",
+      "description": "Gradient",
+      "gpt_kappa": 0.729,
+      "gemini_kappa": 0.402,
+      "gpt_agreement_pct": 82.0,
+      "gemini_agreement_pct": 60.0,
+      "closer_to_human": "GPT-4o"
+    },
+    {
+      "dimension": "Q2",
+      "description": "Query Budget",
+      "gpt_kappa": 0.254,
+      "gemini_kappa": 0.499,
+      "gpt_agreement_pct": 52.0,
+      "gemini_agreement_pct": 76.0,
+      "closer_to_human": "Gemini"
+    }
+  ]
+}

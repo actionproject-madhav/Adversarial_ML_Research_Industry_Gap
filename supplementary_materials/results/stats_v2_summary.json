@@ -1,0 +1,894 @@
+{
+  "total_papers": 459,
+  "by_conference": {
+    "USENIX": {
+      "count": 211,
+      "percentage": 46.0
+    },
+    "ACM": {
+      "count": 120,
+      "percentage": 26.1
+    },
+    "IEEE": {
+      "count": 79,
+      "percentage": 17.2
+    },
+    "NDSS": {
+      "count": 49,
+      "percentage": 10.7
+    }
+  },
+  "by_year": {
+    "2022": {
+      "count": 88,
+      "percentage": 19.2
+    },
+    "2023": {
+      "count": 136,
+      "percentage": 29.6
+    },
+    "2024": {
+      "count": 202,
+      "percentage": 44.0
+    },
+    "2025": {
+      "count": 33,
+      "percentage": 7.2
+    }
+  },
+  "by_conference_and_year": {
+    "2022": {
+      "ACM": 30,
+      "IEEE": 22,
+      "NDSS": 6,
+      "USENIX": 30
+    },
+    "2023": {
+      "ACM": 22,
+      "IEEE": 35,
+      "NDSS": 15,
+      "USENIX": 64
+    },
+    "2024": {
+      "ACM": 52,
+      "IEEE": 22,
+      "NDSS": 28,
+      "USENIX": 100
+    },
+    "2025": {
+      "ACM": 16,
+      "IEEE": 0,
+      "NDSS": 0,
+      "USENIX": 17
+    }
+  },
+  "real_world_testing": {
+    "percentage": 15.7,
+    "count": 72,
+    "total": 459,
+    "ci_lower": 12.6,
+    "ci_upper": 19.3,
+    "formatted": "15.7% [12.6%, 19.3%] (72/459)"
+  },
+  "gradient_dependency": {
+    "percentage": 44.6,
+    "count": 123,
+    "total": 276,
+    "ci_lower": 38.8,
+    "ci_upper": 50.5,
+    "formatted": "44.6% [38.8%, 50.5%] (123/276)",
+    "excluding_na": true
+  },
+  "threat_models": {
+    "White-box": {
+      "percentage": 17.4,
+      "count": 80,
+      "total": 459,
+      "ci_lower": 14.2,
+      "ci_upper": 21.2,
+      "formatted": "17.4% [14.2%, 21.2%] (80/459)"
+    },
+    "Black-box": {
+      "percentage": 35.9,
+      "count": 165,
+      "total": 459,
+      "ci_lower": 31.7,
+      "ci_upper": 40.4,
+      "formatted": "35.9% [31.7%, 40.4%] (165/459)"
+    },
+    "Gray-box": {
+      "percentage": 5.0,
+      "count": 23,
+      "total": 459,
+      "ci_lower": 3.4,
+      "ci_upper": 7.4,
+      "formatted": "5.0% [3.4%, 7.4%] (23/459)"
+    },
+    "White-box/Black-box": {
+      "percentage": 10.0,
+      "count": 46,
+      "total": 459,
+      "ci_lower": 7.6,
+      "ci_upper": 13.1,
+      "formatted": "10.0% [7.6%, 13.1%] (46/459)"
+    },
+    "NA": {
+      "percentage": 31.4,
+      "count": 144,
+      "total": 459,
+      "ci_lower": 27.3,
+      "ci_upper": 35.8,
+      "formatted": "31.4% [27.3%, 35.8%] (144/459)"
+    }
+  },
+  "whitebox_assumption": {
+    "percentage": 27.5,
+    "count": 126,
+    "total": 459,
+    "ci_lower": 23.6,
+    "ci_upper": 31.7,
+    "formatted": "27.5% [23.6%, 31.7%] (126/459)"
+  },
+  "query_budget_high": {
+    "percentage": 61.1,
+    "count": 77,
+    "total": 126,
+    "ci_lower": 52.4,
+    "ci_upper": 69.2,
+    "formatted": "61.1% [52.4%, 69.2%] (77/126)",
+    "denominator_description": "Among papers with queries (excluding None/NA)"
+  },
+  "query_budget_distribution": {
+    "High": {
+      "percentage": 16.8,
+      "count": 77,
+      "total": 459,
+      "ci_lower": 13.6,
+      "ci_upper": 20.5,
+      "formatted": "16.8% [13.6%, 20.5%] (77/459)"
+    },
+    "Low": {
+      "percentage": 10.7,
+      "count": 49,
+      "total": 459,
+      "ci_lower": 8.2,
+      "ci_upper": 13.8,
+      "formatted": "10.7% [8.2%, 13.8%] (49/459)"
+    },
+    "None": {
+      "percentage": 31.8,
+      "count": 146,
+      "total": 459,
+      "ci_lower": 27.7,
+      "ci_upper": 36.2,
+      "formatted": "31.8% [27.7%, 36.2%] (146/459)"
+    },
+    "NA": {
+      "percentage": 40.7,
+      "count": 187,
+      "total": 459,
+      "ci_lower": 36.3,
+      "ci_upper": 45.3,
+      "formatted": "40.7% [36.3%, 45.3%] (187/459)"
+    }
+  },
+  "economic_analysis": {
+    "percentage": 2.8,
+    "count": 13,
+    "total": 459,
+    "ci_lower": 1.7,
+    "ci_upper": 4.8,
+    "formatted": "2.8% [1.7%, 4.8%] (13/459)"
+  },
+  "code_release": {
+    "percentage": 53.4,
+    "count": 245,
+    "total": 459,
+    "ci_lower": 48.8,
+    "ci_upper": 57.9,
+    "formatted": "53.4% [48.8%, 57.9%] (245/459)"
+  },
+  "data_modalities": {
+    "Images": {
+      "percentage": 49.7,
+      "count": 228,
+      "total": 459,
+      "ci_lower": 45.1,
+      "ci_upper": 54.2,
+      "formatted": "49.7% [45.1%, 54.2%] (228/459)"
+    },
+    "Text": {
+      "percentage": 10.7,
+      "count": 49,
+      "total": 459,
+      "ci_lower": 8.2,
+      "ci_upper": 13.8,
+      "formatted": "10.7% [8.2%, 13.8%] (49/459)"
+    },
+    "Audio": {
+      "percentage": 6.8,
+      "count": 31,
+      "total": 459,
+      "ci_lower": 4.8,
+      "ci_upper": 9.4,
+      "formatted": "6.8% [4.8%, 9.4%] (31/459)"
+    },
+    "Malware": {
+      "percentage": 6.3,
+      "count": 29,
+      "total": 459,
+      "ci_lower": 4.4,
+      "ci_upper": 8.9,
+      "formatted": "6.3% [4.4%, 8.9%] (29/459)"
+    },
+    "Other": {
+      "percentage": 24.6,
+      "count": 113,
+      "total": 459,
+      "ci_lower": 20.9,
+      "ci_upper": 28.8,
+      "formatted": "24.6% [20.9%, 28.8%] (113/459)"
+    },
+    "Multiple": {
+      "percentage": 2.0,
+      "count": 9,
+      "total": 459,
+      "ci_lower": 1.0,
+      "ci_upper": 3.7,
+      "formatted": "2.0% [1.0%, 3.7%] (9/459)"
+    }
+  },
+  "focus": {
+    "atk": {
+      "percentage": 46.4,
+      "count": 213,
+      "total": 459,
+      "ci_lower": 41.9,
+      "ci_upper": 51.0,
+      "formatted": "46.4% [41.9%, 51.0%] (213/459)"
+    },
+    "def": {
+      "percentage": 42.5,
+      "count": 195,
+      "total": 459,
+      "ci_lower": 38.0,
+      "ci_upper": 47.0,
+      "formatted": "42.5% [38.0%, 47.0%] (195/459)"
+    },
+    "both": {
+      "percentage": 10.9,
+      "count": 50,
+      "total": 459,
+      "ci_lower": 8.4,
+      "ci_upper": 14.1,
+      "formatted": "10.9% [8.4%, 14.1%] (50/459)"
+    }
+  },
+  "attack_types": {
+    "Evasion": {
+      "percentage": 30.7,
+      "count": 141,
+      "total": 459,
+      "ci_lower": 26.7,
+      "ci_upper": 35.1,
+      "formatted": "30.7% [26.7%, 35.1%] (141/459)"
+    },
+    "Poisoning": {
+      "percentage": 22.7,
+      "count": 104,
+      "total": 459,
+      "ci_lower": 19.1,
+      "ci_upper": 26.7,
+      "formatted": "22.7% [19.1%, 26.7%] (104/459)"
+    },
+    "Privacy": {
+      "percentage": 28.1,
+      "count": 129,
+      "total": 459,
+      "ci_lower": 24.2,
+      "ci_upper": 32.4,
+      "formatted": "28.1% [24.2%, 32.4%] (129/459)"
+    },
+    "Multiple": {
+      "percentage": 2.6,
+      "count": 12,
+      "total": 459,
+      "ci_lower": 1.5,
+      "ci_upper": 4.5,
+      "formatted": "2.6% [1.5%, 4.5%] (12/459)"
+    },
+    "NA": {
+      "percentage": 15.9,
+      "count": 73,
+      "total": 459,
+      "ci_lower": 12.8,
+      "ci_upper": 19.5,
+      "formatted": "15.9% [12.8%, 19.5%] (73/459)"
+    }
+  },
+  "gap_score": {
+    "mean": 2.53,
+    "median": 2.0,
+    "std": 0.96,
+    "distribution": {
+      "0": {
+        "percentage": 0.7,
+        "count": 3,
+        "total": 459,
+        "ci_lower": 0.2,
+        "ci_upper": 1.9,
+        "formatted": "0.7% [0.2%, 1.9%] (3/459)"
+      },
+      "1": {
+        "percentage": 9.4,
+        "count": 43,
+        "total": 459,
+        "ci_lower": 7.0,
+        "ci_upper": 12.4,
+        "formatted": "9.4% [7.0%, 12.4%] (43/459)"
+      },
+      "2": {
+        "percentage": 47.3,
+        "count": 217,
+        "total": 459,
+        "ci_lower": 42.8,
+        "ci_upper": 51.8,
+        "formatted": "47.3% [42.8%, 51.8%] (217/459)"
+      },
+      "3": {
+        "percentage": 24.0,
+        "count": 110,
+        "total": 459,
+        "ci_lower": 20.3,
+        "ci_upper": 28.1,
+        "formatted": "24.0% [20.3%, 28.1%] (110/459)"
+      },
+      "4": {
+        "percentage": 17.0,
+        "count": 78,
+        "total": 459,
+        "ci_lower": 13.8,
+        "ci_upper": 20.7,
+        "formatted": "17.0% [13.8%, 20.7%] (78/459)"
+      },
+      "5": {
+        "percentage": 1.7,
+        "count": 8,
+        "total": 459,
+        "ci_lower": 0.9,
+        "ci_upper": 3.4,
+        "formatted": "1.7% [0.9%, 3.4%] (8/459)"
+      },
+      "6": {
+        "percentage": 0.0,
+        "count": 0,
+        "total": 459,
+        "ci_lower": 0,
+        "ci_upper": 0.8,
+        "formatted": "0.0% [0.0%, 0.8%] (0/459)"
+      }
+    },
+    "low_gap_0_to_1": {
+      "percentage": 10.0,
+      "count": 46,
+      "total": 459,
+      "ci_lower": 7.6,
+      "ci_upper": 13.1,
+      "formatted": "10.0% [7.6%, 13.1%] (46/459)"
+    }
+  },
+  "gap_score_by_domain": {
+    "Images": {
+      "mean_gap_score": 2.7,
+      "n_papers": 228,
+      "gradient_dependency": {
+        "percentage": 54.9,
+        "count": 78,
+        "total": 142,
+        "ci_lower": 46.7,
+        "ci_upper": 62.9,
+        "formatted": "54.9% [46.7%, 62.9%] (78/142)"
+      },
+      "real_world_testing": {
+        "percentage": 12.3,
+        "count": 28,
+        "total": 228,
+        "ci_lower": 8.6,
+        "ci_upper": 17.2,
+        "formatted": "12.3% [8.6%, 17.2%] (28/228)"
+      }
+    },
+    "Text": {
+      "mean_gap_score": 2.24,
+      "n_papers": 49,
+      "gradient_dependency": {
+        "percentage": 25.0,
+        "count": 8,
+        "total": 32,
+        "ci_lower": 13.3,
+        "ci_upper": 42.1,
+        "formatted": "25.0% [13.3%, 42.1%] (8/32)"
+      },
+      "real_world_testing": {
+        "percentage": 24.5,
+        "count": 12,
+        "total": 49,
+        "ci_lower": 14.6,
+        "ci_upper": 38.1,
+        "formatted": "24.5% [14.6%, 38.1%] (12/49)"
+      }
+    },
+    "Audio": {
+      "mean_gap_score": 1.81,
+      "n_papers": 31,
+      "gradient_dependency": {
+        "percentage": 15.8,
+        "count": 3,
+        "total": 19,
+        "ci_lower": 5.5,
+        "ci_upper": 37.6,
+        "formatted": "15.8% [5.5%, 37.6%] (3/19)"
+      },
+      "real_world_testing": {
+        "percentage": 54.8,
+        "count": 17,
+        "total": 31,
+        "ci_lower": 37.8,
+        "ci_upper": 70.8,
+        "formatted": "54.8% [37.8%, 70.8%] (17/31)"
+      }
+    },
+    "Malware": {
+      "mean_gap_score": 2.21,
+      "n_papers": 29,
+      "gradient_dependency": {
+        "percentage": 38.5,
+        "count": 5,
+        "total": 13,
+        "ci_lower": 17.7,
+        "ci_upper": 64.5,
+        "formatted": "38.5% [17.7%, 64.5%] (5/13)"
+      },
+      "real_world_testing": {
+        "percentage": 20.7,
+        "count": 6,
+        "total": 29,
+        "ci_lower": 9.8,
+        "ci_upper": 38.4,
+        "formatted": "20.7% [9.8%, 38.4%] (6/29)"
+      }
+    },
+    "Other": {
+      "mean_gap_score": 2.54,
+      "n_papers": 113,
+      "gradient_dependency": {
+        "percentage": 38.5,
+        "count": 25,
+        "total": 65,
+        "ci_lower": 27.6,
+        "ci_upper": 50.6,
+        "formatted": "38.5% [27.6%, 50.6%] (25/65)"
+      },
+      "real_world_testing": {
+        "percentage": 7.1,
+        "count": 8,
+        "total": 113,
+        "ci_lower": 3.6,
+        "ci_upper": 13.4,
+        "formatted": "7.1% [3.6%, 13.4%] (8/113)"
+      }
+    }
+  },
+  "temporal_trends": {
+    "2022": {
+      "n_papers": 88,
+      "real_world_testing": {
+        "percentage": 14.8,
+        "count": 13,
+        "total": 88,
+        "ci_lower": 8.8,
+        "ci_upper": 23.7,
+        "formatted": "14.8% [8.8%, 23.7%] (13/88)"
+      },
+      "gradient_dependency": {
+        "percentage": 33.3,
+        "count": 19,
+        "total": 57,
+        "ci_lower": 22.5,
+        "ci_upper": 46.3,
+        "formatted": "33.3% [22.5%, 46.3%] (19/57)"
+      },
+      "whitebox_assumption": {
+        "percentage": 27.3,
+        "count": 24,
+        "total": 88,
+        "ci_lower": 19.1,
+        "ci_upper": 37.4,
+        "formatted": "27.3% [19.1%, 37.4%] (24/88)"
+      },
+      "high_query_budget": {
+        "percentage": 63.6,
+        "count": 21,
+        "total": 33,
+        "ci_lower": 46.6,
+        "ci_upper": 77.8,
+        "formatted": "63.6% [46.6%, 77.8%] (21/33)"
+      },
+      "economic_analysis": {
+        "percentage": 3.4,
+        "count": 3,
+        "total": 88,
+        "ci_lower": 1.2,
+        "ci_upper": 9.5,
+        "formatted": "3.4% [1.2%, 9.5%] (3/88)"
+      },
+      "mean_gap_score": 2.55
+    },
+    "2023": {
+      "n_papers": 136,
+      "real_world_testing": {
+        "percentage": 15.4,
+        "count": 21,
+        "total": 136,
+        "ci_lower": 10.3,
+        "ci_upper": 22.5,
+        "formatted": "15.4% [10.3%, 22.5%] (21/136)"
+      },
+      "gradient_dependency": {
+        "percentage": 44.9,
+        "count": 35,
+        "total": 78,
+        "ci_lower": 34.3,
+        "ci_upper": 55.9,
+        "formatted": "44.9% [34.3%, 55.9%] (35/78)"
+      },
+      "whitebox_assumption": {
+        "percentage": 29.4,
+        "count": 40,
+        "total": 136,
+        "ci_lower": 22.4,
+        "ci_upper": 37.6,
+        "formatted": "29.4% [22.4%, 37.6%] (40/136)"
+      },
+      "high_query_budget": {
+        "percentage": 67.6,
+        "count": 23,
+        "total": 34,
+        "ci_lower": 50.8,
+        "ci_upper": 80.9,
+        "formatted": "67.6% [50.8%, 80.9%] (23/34)"
+      },
+      "economic_analysis": {
+        "percentage": 3.7,
+        "count": 5,
+        "total": 136,
+        "ci_lower": 1.6,
+        "ci_upper": 8.3,
+        "formatted": "3.7% [1.6%, 8.3%] (5/136)"
+      },
+      "mean_gap_score": 2.53
+    },
+    "2024": {
+      "n_papers": 202,
+      "real_world_testing": {
+        "percentage": 16.3,
+        "count": 33,
+        "total": 202,
+        "ci_lower": 11.9,
+        "ci_upper": 22.1,
+        "formatted": "16.3% [11.9%, 22.1%] (33/202)"
+      },
+      "gradient_dependency": {
+        "percentage": 44.9,
+        "count": 53,
+        "total": 118,
+        "ci_lower": 36.2,
+        "ci_upper": 53.9,
+        "formatted": "44.9% [36.2%, 53.9%] (53/118)"
+      },
+      "whitebox_assumption": {
+        "percentage": 23.8,
+        "count": 48,
+        "total": 202,
+        "ci_lower": 18.4,
+        "ci_upper": 30.1,
+        "formatted": "23.8% [18.4%, 30.1%] (48/202)"
+      },
+      "high_query_budget": {
+        "percentage": 56.6,
+        "count": 30,
+        "total": 53,
+        "ci_lower": 43.3,
+        "ci_upper": 69.0,
+        "formatted": "56.6% [43.3%, 69.0%] (30/53)"
+      },
+      "economic_analysis": {
+        "percentage": 2.5,
+        "count": 5,
+        "total": 202,
+        "ci_lower": 1.1,
+        "ci_upper": 5.7,
+        "formatted": "2.5% [1.1%, 5.7%] (5/202)"
+      },
+      "mean_gap_score": 2.46
+    },
+    "2025": {
+      "n_papers": 33,
+      "real_world_testing": {
+        "percentage": 15.2,
+        "count": 5,
+        "total": 33,
+        "ci_lower": 6.7,
+        "ci_upper": 30.9,
+        "formatted": "15.2% [6.7%, 30.9%] (5/33)"
+      },
+      "gradient_dependency": {
+        "percentage": 69.6,
+        "count": 16,
+        "total": 23,
+        "ci_lower": 49.1,
+        "ci_upper": 84.4,
+        "formatted": "69.6% [49.1%, 84.4%] (16/23)"
+      },
+      "whitebox_assumption": {
+        "percentage": 42.4,
+        "count": 14,
+        "total": 33,
+        "ci_lower": 27.2,
+        "ci_upper": 59.2,
+        "formatted": "42.4% [27.2%, 59.2%] (14/33)"
+      },
+      "high_query_budget": {
+        "percentage": 50.0,
+        "count": 3,
+        "total": 6,
+        "ci_lower": 18.8,
+        "ci_upper": 81.2,
+        "formatted": "50.0% [18.8%, 81.2%] (3/6)"
+      },
+      "economic_analysis": {
+        "percentage": 0.0,
+        "count": 0,
+        "total": 33,
+        "ci_lower": 0,
+        "ci_upper": 10.4,
+        "formatted": "0.0% [0.0%, 10.4%] (0/33)"
+      },
+      "mean_gap_score": 2.85
+    }
+  },
+  "by_venue": {
+    "ACM": {
+      "n_papers": 120,
+      "real_world_testing": {
+        "percentage": 17.5,
+        "count": 21,
+        "total": 120,
+        "ci_lower": 11.7,
+        "ci_upper": 25.3,
+        "formatted": "17.5% [11.7%, 25.3%] (21/120)"
+      },
+      "gradient_dependency": {
+        "percentage": 42.7,
+        "count": 35,
+        "total": 82,
+        "ci_lower": 32.5,
+        "ci_upper": 53.5,
+        "formatted": "42.7% [32.5%, 53.5%] (35/82)"
+      },
+      "whitebox_assumption": {
+        "percentage": 25.0,
+        "count": 30,
+        "total": 120,
+        "ci_lower": 18.1,
+        "ci_upper": 33.4,
+        "formatted": "25.0% [18.1%, 33.4%] (30/120)"
+      },
+      "high_query_budget": {
+        "percentage": 54.5,
+        "count": 24,
+        "total": 44,
+        "ci_lower": 40.1,
+        "ci_upper": 68.3,
+        "formatted": "54.5% [40.1%, 68.3%] (24/44)"
+      },
+      "economic_analysis": {
+        "percentage": 4.2,
+        "count": 5,
+        "total": 120,
+        "ci_lower": 1.8,
+        "ci_upper": 9.4,
+        "formatted": "4.2% [1.8%, 9.4%] (5/120)"
+      },
+      "mean_gap_score": 2.52
+    },
+    "IEEE": {
+      "n_papers": 79,
+      "real_world_testing": {
+        "percentage": 13.9,
+        "count": 11,
+        "total": 79,
+        "ci_lower": 8.0,
+        "ci_upper": 23.2,
+        "formatted": "13.9% [8.0%, 23.2%] (11/79)"
+      },
+      "gradient_dependency": {
+        "percentage": 38.6,
+        "count": 17,
+        "total": 44,
+        "ci_lower": 25.7,
+        "ci_upper": 53.4,
+        "formatted": "38.6% [25.7%, 53.4%] (17/44)"
+      },
+      "whitebox_assumption": {
+        "percentage": 26.6,
+        "count": 21,
+        "total": 79,
+        "ci_lower": 18.1,
+        "ci_upper": 37.2,
+        "formatted": "26.6% [18.1%, 37.2%] (21/79)"
+      },
+      "high_query_budget": {
+        "percentage": 70.0,
+        "count": 14,
+        "total": 20,
+        "ci_lower": 48.1,
+        "ci_upper": 85.5,
+        "formatted": "70.0% [48.1%, 85.5%] (14/20)"
+      },
+      "economic_analysis": {
+        "percentage": 2.5,
+        "count": 2,
+        "total": 79,
+        "ci_lower": 0.7,
+        "ci_upper": 8.8,
+        "formatted": "2.5% [0.7%, 8.8%] (2/79)"
+      },
+      "mean_gap_score": 2.49
+    },
+    "NDSS": {
+      "n_papers": 49,
+      "real_world_testing": {
+        "percentage": 12.2,
+        "count": 6,
+        "total": 49,
+        "ci_lower": 5.7,
+        "ci_upper": 24.2,
+        "formatted": "12.2% [5.7%, 24.2%] (6/49)"
+      },
+      "gradient_dependency": {
+        "percentage": 65.4,
+        "count": 17,
+        "total": 26,
+        "ci_lower": 46.2,
+        "ci_upper": 80.6,
+        "formatted": "65.4% [46.2%, 80.6%] (17/26)"
+      },
+      "whitebox_assumption": {
+        "percentage": 28.6,
+        "count": 14,
+        "total": 49,
+        "ci_lower": 17.8,
+        "ci_upper": 42.4,
+        "formatted": "28.6% [17.8%, 42.4%] (14/49)"
+      },
+      "high_query_budget": {
+        "percentage": 85.7,
+        "count": 6,
+        "total": 7,
+        "ci_lower": 48.7,
+        "ci_upper": 97.4,
+        "formatted": "85.7% [48.7%, 97.4%] (6/7)"
+      },
+      "economic_analysis": {
+        "percentage": 4.1,
+        "count": 2,
+        "total": 49,
+        "ci_lower": 1.1,
+        "ci_upper": 13.7,
+        "formatted": "4.1% [1.1%, 13.7%] (2/49)"
+      },
+      "mean_gap_score": 2.59
+    },
+    "USENIX": {
+      "n_papers": 211,
+      "real_world_testing": {
+        "percentage": 16.1,
+        "count": 34,
+        "total": 211,
+        "ci_lower": 11.8,
+        "ci_upper": 21.7,
+        "formatted": "16.1% [11.8%, 21.7%] (34/211)"
+      },
+      "gradient_dependency": {
+        "percentage": 43.5,
+        "count": 54,
+        "total": 124,
+        "ci_lower": 35.1,
+        "ci_upper": 52.3,
+        "formatted": "43.5% [35.1%, 52.3%] (54/124)"
+      },
+      "whitebox_assumption": {
+        "percentage": 28.9,
+        "count": 61,
+        "total": 211,
+        "ci_lower": 23.2,
+        "ci_upper": 35.4,
+        "formatted": "28.9% [23.2%, 35.4%] (61/211)"
+      },
+      "high_query_budget": {
+        "percentage": 60.0,
+        "count": 33,
+        "total": 55,
+        "ci_lower": 46.8,
+        "ci_upper": 71.9,
+        "formatted": "60.0% [46.8%, 71.9%] (33/55)"
+      },
+      "economic_analysis": {
+        "percentage": 1.9,
+        "count": 4,
+        "total": 211,
+        "ci_lower": 0.7,
+        "ci_upper": 4.8,
+        "formatted": "1.9% [0.7%, 4.8%] (4/211)"
+      },
+      "mean_gap_score": 2.52
+    }
+  },
+  "attack_vs_defense": {
+    "atk": {
+      "n_papers": 213,
+      "gradient_dependency": {
+        "percentage": 40.8,
+        "count": 86,
+        "total": 211,
+        "ci_lower": 34.4,
+        "ci_upper": 47.5,
+        "formatted": "40.8% [34.4%, 47.5%] (86/211)"
+      },
+      "high_query_budget": {
+        "percentage": 67.0,
+        "count": 67,
+        "total": 100,
+        "ci_lower": 57.3,
+        "ci_upper": 75.4,
+        "formatted": "67.0% [57.3%, 75.4%] (67/100)"
+      },
+      "real_world_testing": {
+        "percentage": 23.9,
+        "count": 51,
+        "total": 213,
+        "ci_lower": 18.7,
+        "ci_upper": 30.1,
+        "formatted": "23.9% [18.7%, 30.1%] (51/213)"
+      }
+    },
+    "def": {
+      "n_papers": 195,
+      "gradient_dependency": {
+        "percentage": 78.9,
+        "count": 15,
+        "total": 19,
+        "ci_lower": 56.7,
+        "ci_upper": 91.5,
+        "formatted": "78.9% [56.7%, 91.5%] (15/19)"
+      },
+      "high_query_budget": {
+        "percentage": 50.0,
+        "count": 3,
+        "total": 6,
+        "ci_lower": 18.8,
+        "ci_upper": 81.2,
+        "formatted": "50.0% [18.8%, 81.2%] (3/6)"
+      },
+      "real_world_testing": {
+        "percentage": 7.2,
+        "count": 14,
+        "total": 195,
+        "ci_lower": 4.3,
+        "ci_upper": 11.7,
+        "formatted": "7.2% [4.3%, 11.7%] (14/195)"
+      }
+    }
+  }
+}

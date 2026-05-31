@@ -1,4 +1,11 @@
-openai>=1.0.0
-pandas>=2.0.0
-python-dotenv>=1.0.0
-PyPDF2>=3.0.0
+pandas
+numpy
+scipy
+scikit-learn
+krippendorff
+matplotlib
+seaborn
+pymupdf
+openai
+google-generativeai
+python-dotenv
