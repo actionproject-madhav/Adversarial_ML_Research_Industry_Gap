@@ -17,6 +17,7 @@
 \urlstyle{rm}
 
 \graphicspath{{figs/}}
+\raggedbottom
 
 \begin{document}
 
@@ -79,7 +80,7 @@ These studies motivate our large-scale quantitative measurement of whether the g
 
 We systematically reviewed all adversarial ML papers published from 2022 through 2025 at four premier security venues. Papers were identified through keyword searches (including ``adversarial,'' ``backdoor,'' ``poisoning,'' ``robustness'') across proceedings and digital libraries, supplemented by cross-referencing papers cited in Apruzzese et al.~\cite{apruzzese2022real}. Our dataset comprises 459 papers: ACM CCS contributed 120 (26.1\%), IEEE S\&P 79 (17.2\%), NDSS 49 (10.7\%), and USENIX Security 211 (46.0\%), spanning 88 papers from 2022, 136 from 2023, 202 from 2024, and 33 from 2025 (Fig.~\ref{fig:dataset}). Each paper was coded on 9 dimensions adapted from Apruzzese et al.: research focus (G1: attack, defense, or both), attack type (G2: evasion, poisoning, privacy, or multiple), data modality (G3: images, text, audio, malware, or other), economic analysis (G4: quantitative cost analysis with dollar amounts), code release (G5), real-system testing (G6), threat model (T1: white-box, black-box, or gray-box), gradient access (Q1), and query budget (Q2: high, low, none, or not applicable). The coding was performed using GPT-4o (temperature=0) with structured prompts explicitly defining each dimension. For each paper, we extracted the full text using PyPDF2 and provided it to the model along with a fixed-format prompt. The complete coding framework (codebook) with operational definitions for all nine dimensions and the full GPT-4o analysis prompt are provided as supplementary material in our public repository.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig1_dataset.png}
     \caption{Distribution of the 459 adversarial ML papers across four security conferences from 2022 through 2025}
@@ -133,7 +134,7 @@ White-box assumptions can be appropriate for open-source models, insider threats
 
 Our analysis reveals several dimensions where research evaluation practices reflect different priorities than typical deployment contexts. Figure~\ref{fig:gap_overview} summarizes the key gap indicators across all 459 papers.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig2_overview.png}
     \caption{Key indicators of the theory-practice gap across all 459 papers}
@@ -142,7 +143,7 @@ Our analysis reveals several dimensions where research evaluation practices refl
 
 \paragraph{Real-World Evaluation.} 15.7\% [95\% CI: 12.6\%, 19.3\%] of papers (72 of 459) included experiments on operational systems, while 84.3\% focused on controlled evaluations using offline datasets, simulated environments, or research prototypes (Fig.~\ref{fig:real_world}). Both evaluation approaches serve important purposes: controlled settings enable reproducibility and systematic comparison, while operational testing reveals deployment-specific challenges. Some papers testing on real systems have revealed gaps between laboratory and field performance. Nayan et al.~\cite{nayan2024sok} found many academic model extraction attacks difficult to reproduce on actual services, and Layton et al.~\cite{layton2024sok} observed similar patterns for deepfake detection on realistic distributions.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig3_realworld.png}
     \caption{Rate of real-world testing: only 15.7\% of papers evaluated on deployed systems.}
@@ -153,35 +154,39 @@ Our analysis reveals several dimensions where research evaluation practices refl
 
 \paragraph{Threat Models and Query Budgets.} 27.5\% [95\% CI: 23.6\%, 31.7\%] of papers assume white-box adversaries (including mixed white-box/black-box), with 35.9\% considering pure black-box and 5.0\% gray-box scenarios (Fig.~\ref{fig:threat_model}). 72.5\% [95\% CI: 68.3\%, 76.4\%] of papers do not explicitly discuss query budgets, either because they do not require queries (white-box gradient-based attacks) or the query budget dimension is not applicable (defense papers). Among the 126 papers that do discuss query budgets, 61.1\% [95\% CI: 52.4\%, 69.2\%] assume budgets exceeding 1000 queries (Fig.~\ref{fig:query}). Important work has also explored low-query settings: Tao et al.~\cite{tao2023hardbeat} achieved high attack success under hard-label constraints with few queries, and Wan et al.~\cite{wan2024bounceattack} developed a decision-based approach requiring minimal queries. As real-world deployments typically impose strict rate limits, query budget analysis represents an important dimension for bridging theory and practice.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig4_threat.png}
     \caption{Threat model assumptions: 27.5\% assume white-box access, while black-box scenarios are more common at 35.9\%.}
     \label{fig:threat_model}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig5_query.png}
     \caption{Query budget distribution: 72.5\% of papers do not discuss query budgets; among the 27.5\% that do, 61.1\% assume high budgets ($> 1000$).}
     \label{fig:query}
 \end{figure}
 
-\paragraph{Domain Patterns and Gap Score.} 49.7\% of papers focus on image-based tasks, with text (10.7\%), audio (6.8\%), malware (6.3\%), and other domains (24.6\%) comprising the remainder (Fig.~\ref{fig:domains}). Per-domain analysis reveals substantial variation in evaluation practices. Image-focused research exhibits the highest Gap Score (2.70), with 54.9\% requiring gradients and 12.3\% testing on real systems. In contrast, text/LLM research shows a Gap Score of 2.24 (25.0\% gradient dependency, 24.5\% real-system testing), audio research 1.81 (15.8\% gradients, 54.8\% real-system testing), and malware research 2.21 (38.5\% gradients, 20.7\% real-system testing). These differences likely reflect domain-specific factors: image datasets are standardized and widely available, while audio and LLM systems are more commonly deployed as commercial services, creating natural opportunities for real-system evaluation. The average Gap Score across all papers was 2.53 out of 5, with 10.0\% [95\% CI: 7.6\%, 13.1\%] scoring 0 to 1 (Fig.~\ref{fig:gap_score}). Notably, 97.2\% [95\% CI: 95.2\%, 98.3\%] of papers lack economic analysis under our strict definition (quantitative cost analysis with explicit dollar amounts, pricing comparisons, or ROI calculations); only 2.8\% (13/459) provided such actionable economic data. A relaxed definition including compute-time proxies (e.g., ``100 GPU-hours'') and API-cost estimates without explicit dollar figures would increase this rate to an estimated 5--8\% based on manual review of borderline cases, but the core finding of near-absent economic framing is robust to definitional choice. In our 50-paper validation sample, 0/50 papers met the strict definition. Cross-venue variation was minimal: ACM CCS averaged 2.52, IEEE S\&P 2.49, NDSS 2.59, and USENIX 2.53.
+\paragraph{Domain Patterns and Gap Score.} 49.7\% of papers focus on image-based tasks, with text (10.7\%), audio (6.8\%), malware (6.3\%), and other domains (24.6\%) comprising the remainder (Fig.~\ref{fig:domains}).
 
-\begin{figure}[htbp]
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig7_domains.png}
+    \caption{Data domain distribution: image-focused research remains most common at 49.7\%, with increasing diversity across text, audio, malware, and other domains.}
+    \label{fig:domains}
+\end{figure}
+
+Per-domain analysis reveals substantial variation in evaluation practices. Image-focused research exhibits the highest Gap Score (2.70), with 54.9\% requiring gradients and 12.3\% testing on real systems. In contrast, text/LLM research shows a Gap Score of 2.24 (25.0\% gradient dependency, 24.5\% real-system testing), audio research 1.81 (15.8\% gradients, 54.8\% real-system testing), and malware research 2.21 (38.5\% gradients, 20.7\% real-system testing). These differences likely reflect domain-specific factors: image datasets are standardized and widely available, while audio and LLM systems are more commonly deployed as commercial services, creating natural opportunities for real-system evaluation. The average Gap Score across all papers was 2.53 out of 5, with 10.0\% [95\% CI: 7.6\%, 13.1\%] scoring 0 to 1 (Fig.~\ref{fig:gap_score}).
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig6_gapscore.png}
     \caption{Gap Score distribution (0-5 scale): mean score of 2.53 indicates papers typically exhibit about half of the tracked impractical assumptions.}
     \label{fig:gap_score}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{fig7_domains.png}
-    \caption{Data domain distribution: image-focused research remains most common at 49.7\%, with increasing diversity across text, audio, malware, and other domains.}
-    \label{fig:domains}
-\end{figure}
+Notably, 97.2\% [95\% CI: 95.2\%, 98.3\%] of papers lack economic analysis under our strict definition (quantitative cost analysis with explicit dollar amounts, pricing comparisons, or ROI calculations); only 2.8\% (13/459) provided such actionable economic data. A relaxed definition including compute-time proxies (e.g., ``100 GPU-hours'') and API-cost estimates without explicit dollar figures would increase this rate to an estimated 5--8\% based on manual review of borderline cases, but the core finding of near-absent economic framing is robust to definitional choice. In our 50-paper validation sample, 0/50 papers met the strict definition. Cross-venue variation was minimal: ACM CCS averaged 2.52, IEEE S\&P 2.49, NDSS 2.59, and USENIX 2.53.
 
 \paragraph{Research Patterns.} Beyond these statistics, three patterns emerge. First, defenses often trade robustness for accuracy, latency, or usability~\cite{xiang2022patchcleanser,ahmed2022keyword,liu2022mldoctor}, though recent work reports reduced utility costs~\cite{li2024mist,wang2025camp}. Second, research increasingly addresses physical and system-level contexts including autonomous driving~\cite{jia2022physical}, production ML pipelines~\cite{nasr2025magika}, and LLM jailbreaking~\cite{chao2023jailbreaking}. Third, only a small subset addresses economic incentives or organizational factors~\cite{mink2023barriers}.
 
@@ -191,7 +196,7 @@ Our analysis reveals several dimensions where research evaluation practices refl
 
 Figure~\ref{fig:trends} summarizes how indicators evolved following the Apruzzese et al.\ critique. Note that 2025 data represents only partial-year coverage (33 papers) and is not included in the temporal trend analysis, which focuses on complete years 2022--2024.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig8_trends.png}
     \caption{Temporal trends on key gap indicators from 2022 to 2024 (2025 data excluded due to incomplete year coverage)}
@@ -206,7 +211,7 @@ Multivariate logistic regression controlling for venue, data domain, and paper f
 
 While all four venues exhibited similar overall patterns, each demonstrated distinct emphases (Fig.~\ref{fig:heatmap}). Chi-square tests showed no statistically significant cross-venue differences for any gap indicator: real-system testing ($\chi^2(3) = 0.95$, $p = 0.81$), white-box assumption ($\chi^2(3) = 0.65$, $p = 0.89$), gradient dependency ($\chi^2(3) = 5.36$, $p = 0.15$), and economic analysis ($\chi^2(3) = 1.75$, $p = 0.63$). A Kruskal-Wallis test on Gap Scores similarly showed no significant venue effect ($H = 0.18$, $p = 0.98$). CCS papers frequently addressed model theft, watermarking, and human factors within broader system contexts. S\&P publications featured systematic evaluations with explicit threat model justification. NDSS papers often explored physical-world attacks and federated learning, grounding evaluations in realistic settings. USENIX contributed the largest volume across diverse topics, with several papers testing on real platforms.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig9_venue.png}
     \caption{Comparison of adversarial ML research characteristics across conferences}
@@ -217,7 +222,7 @@ Comparing attack- and defense-oriented papers (Fig.~\ref{fig:atk_def}), attack p
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{fig10_atkdef.png}
+    \includegraphics[width=0.88\textwidth]{fig10_atkdef.png}
     \caption{Comparison of practicality metrics between attack- and defense-focused papers}
     \label{fig:atk_def}
 \end{figure}
