@@ -9,8 +9,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{array}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta}
+\usepackage{float}
 \usepackage{bbding}
 \usepackage[hidelinks]{hyperref}
 \usepackage{color}
@@ -216,7 +215,7 @@ While all four venues exhibited similar overall patterns, each demonstrated dist
 
 Comparing attack- and defense-oriented papers (Fig.~\ref{fig:atk_def}), attack papers showed 40.8\% gradient dependency and 67.0\% high query budgets (among papers with queries), while defense papers showed 78.9\% gradient dependency (primarily gradient-based defenses) and 50.0\% high query budgets. Attack papers demonstrated higher real-system testing rates (23.9\% vs.\ 7.2\% for defense papers), reflecting different evaluation opportunities: attacks can often be tested against commercial APIs with appropriate permissions, while defenses typically require integration into model training or inference pipelines.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{fig10_atkdef.png}
     \caption{Comparison of practicality metrics between attack- and defense-focused papers}
@@ -231,24 +230,9 @@ The proliferation of large language models and multimodal foundation models has 
 
 Real-world incidents demonstrate these threats. In mid-2025, Anthropic disclosed a state-sponsored campaign where an AI agent autonomously conducted reconnaissance, exploit generation, and data exfiltration against approximately thirty targets~\cite{anthropic2025ai}, performing 80 to 90\% of operational workload (Fig.~\ref{fig:claude}). The attack exploited agentic execution and jailbreaking, not gradient access. Similarly, EchoLeak exfiltrated data from Microsoft 365 Copilot through malicious documents~\cite{aim2025echoleak}, and training data extraction from ChatGPT succeeded through structured prompts at modest cost~\cite{nasr2023scalable}. Foundation models pose systemic risks because vulnerabilities in widely-deployed base models propagate across downstream applications. The most effective automated attacks require white-box access or substantial queries, yet commercial APIs provide only black-box access with rate limits. Deployed models receive frequent updates, invalidating discovered vulnerabilities. These characteristics highlight the importance of complementing theoretical robustness analysis with evaluation under deployment-realistic constraints, including system integration, multimodal capabilities, and automation workflows that are increasingly common in operational contexts.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
-    \begin{tikzpicture}
-        \node[anchor=south west,inner sep=0] (img) at (0,0)
-            {\includegraphics[width=\textwidth]{fig11_claude.png}};
-        \begin{scope}[x={(img.south east)},y={(img.north west)}]
-            % transition arrow spanning the human-led (left) to AI-driven (right) flow
-            \node[anchor=south west,font=\scriptsize\bfseries] at (0.02,1.005) {Human-led targeting};
-            \node[anchor=south east,font=\scriptsize\bfseries] at (0.99,1.005) {AI-driven execution};
-            \draw[-{Stealth[length=2.5mm]},line width=1pt,black!55]
-                (0.20,1.015) -- (0.80,1.015);
-            % workload-shift callout
-            \node[anchor=south,align=center,font=\scriptsize,
-                  fill=red!8,draw=red!45,rounded corners,inner sep=2.5pt]
-                  at (0.5,1.05)
-                  {$\approx$\,80--90\% of operational workload executed autonomously by the AI agent};
-        \end{scope}
-    \end{tikzpicture}
+    \includegraphics[width=\textwidth]{fig11_claude.png}
     \caption{The lifecycle of an AI-orchestrated cyberattack~\cite{anthropic2025ai}. A human operator only sets the target in Phase~1 (far left); the AI agent then autonomously carries out reconnaissance, exploitation, and data exfiltration across Phases~2--5 (left to right), performing an estimated 80--90\% of the operational workload. This human-to-AI handoff illustrates how emerging threats increasingly center on automation and system-level integration rather than model-level adversarial manipulation.}
     \label{fig:claude}
 \end{figure}
